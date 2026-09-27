@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import logging
 from pathlib import Path
@@ -162,8 +163,10 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
         parent_id = f"{pdf_path.stem}_P_{p_idx}"
         
         # 更新父文件的 Metadata (除了#/## header資訊以外，加入id,類別,檔名)
+        page_matches = re.findall(r"<!-- PAGE_START_(\d+) -->", p_doc.page_content)
+        page_num = int(page_matches[0]) if page_matches else None
         p_metadata = p_doc.metadata.copy()
-        p_metadata.update({"parent_id": parent_id, "category": category, "file_name": file_name})
+        p_metadata.update({"parent_id": parent_id, "category": category, "file_name": file_name, "page_num": page_num})
         
         # 父文件寫入store，用於 RAG 問答階段時的「反查」
         parent_store[parent_id] = {
@@ -175,7 +178,7 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
         sub_chunks = CHILD_SPLITTER.split_text(p_doc.page_content)
         for c_idx, sub_chunk in enumerate(sub_chunks):
             # 子文件 Metadata 必須挾帶父文檔 ID、#/##Header、類別等標記(知道子從哪個父來的)
-            c_metadata = p_doc.metadata.copy()
+            c_metadata = p_metadata.copy()
             c_metadata.update({
                 "parent_id": parent_id,
                 "child_id": f"{parent_id}_C_{c_idx}",

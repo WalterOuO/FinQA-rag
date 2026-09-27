@@ -16,7 +16,7 @@ async def ask_rag_question(request: QueryRequest):
     3. 回傳具備高度物理追溯力的分析答案
     """
     logger.info(f"📥 Received RAG Question. Category: [{request.category.value}], Query: '{request.question}'")
-    
+        
     try:
       # 呼叫 Service 服務層，直接傳入問題文字與枚舉字串值
       result = await query_service.answer_question(

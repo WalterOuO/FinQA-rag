@@ -24,6 +24,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     handlers=[logging.StreamHandler()]
 )
+logging.getLogger().setLevel(logging.INFO)
 logger = logging.getLogger(__name__)
 
 # ====== 1. 定義 FastAPI 生命週期治理 (Lifespan) ======
@@ -91,8 +92,7 @@ app.add_middleware(
 # ====== 4. 註冊子業務路由器 (API Endpoints) ======
 app.include_router(upload_router)
 app.include_router(query_router)
-app.include_router(task_status_router)  # 🎯 完美註冊了進度條狀態查詢大門！
-
+app.include_router(task_status_router)
 
 # ====== 5. 健康檢查端點 (Health Check) ======
 @app.get("/health", status_code=status.HTTP_200_OK, tags=["System Health"])

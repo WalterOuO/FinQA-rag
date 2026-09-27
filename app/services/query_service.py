@@ -95,7 +95,8 @@ class QueryService:
             "cached": False
         }
     logger.info(f"📂 [Step 4] Parent Retrieval success. Loaded {len(parent_documents)} parent documents non-blockingly.")
-
+    logger.info(f"🔎 Parent metadata sample: {parent_documents[0].metadata}")
+    
     # ====== Step 5: Reranker 交叉深度重新評分 (動態讀取 Top K) ======
     reranked_top_docs = rerank_client.rerank(
         query=question,

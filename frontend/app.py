@@ -23,7 +23,7 @@ if "upload_tasks" not in st.session_state:
 with st.sidebar:
     st.title("🏦 FinQA RAG 系統")
     st.markdown("---")
-    st.subheader("📁 當前業務範疇選擇")
+    st.subheader("📁 選擇當前業務範疇")
     
     # 強制限制前端只能選擇 insurance 或 finance，與後端 Pydantic Enum 完美對齊
     category = st.selectbox(
@@ -90,7 +90,7 @@ with tab_qa:
                   if sources:
                     with st.expander("🔍 資料引用處 "):
                       for src in sources:
-                        st.markdown(f"**[{src['index']}] 原始檔案：** `{src['file_name']}` | **章節標題：** `{src['header']}`")
+                        st.markdown(f"**[{src['frontend_index']}] 原始檔案：** `{src['file_name']}` | **章節標題：** `{src['header']}`")
                   
                   # 儲存助理回覆至歷史
                   st.session_state.messages.append({
