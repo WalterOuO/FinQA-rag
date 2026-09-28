@@ -63,16 +63,12 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
 
     pdf_path = Path(file_path)
     markdown_content = []
-    # ✅ ✅ 新增加的 ✅ ✅
-    page_ranges = []
 
     # ====== 1. Hybrid PDF Parsing (順序拼接) ======
     try:
       with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
           page_num = page.page_number
-          # ✅ ✅ 新增加的 ✅ ✅
-          page_start_pos = sum(len(x) for x in markdown_content)
           markdown_content.append(f"\n<!-- PAGE_START_{page_num} -->\n")
           
           # 1. 檢查是否為圖片型 PDF
@@ -143,9 +139,6 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
             markdown_content.append("\n")
                   
           markdown_content.append(f"\n<!-- PAGE_END_{page_num} -->\n")
-          # ✅ ✅ 新增加的 ✅ ✅
-          page_end_pos = sum(len(x) for x in markdown_content)
-          page_ranges.append((page_start_pos, page_end_pos, page_num))
                 
     except Exception as e:
         logger.error(f"❌ PDF 解析出錯: {str(e)}")
@@ -163,35 +156,26 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
     self.update_state(state="PROCESSING", meta={"current_stage": "Parent_Child_Chunking"})
     # A. 依據 Markdown 標題切出「大父文件」
     parent_docs = MD_SPLITTER.split_text(full_markdown)
-    # ✅ ✅ 新增加的 ✅ ✅
-    search_pos = 0
     parent_store = {}
     child_documents = []
-    
+    current_page_num = None
+
     for p_idx, p_doc in enumerate(parent_docs):
         parent_id = f"{pdf_path.stem}_P_{p_idx}"
         
-        # 更新父文件的 Metadata (除了#/## header資訊以外，加入id,類別,檔名)
-        # ✅ ✅ 新增加的 ✅ ✅
-        chunk_start = full_markdown.find(p_doc.page_content, search_pos)
-        if chunk_start == -1:
-          logger.warning(f"⚠️ 無法定位 Parent Chunk {parent_id} 在原始 Markdown 的位置")
-          page_num = None
-        else:
-          page_marker_pos = full_markdown.rfind("<!-- PAGE_START_", 0, chunk_start + 1)
-          if page_marker_pos == -1:
-            logger.warning(f"⚠️ 找不到 Parent Chunk {parent_id} 對應的 PAGE_START")
-            page_num = None
-          else:
-            marker_end = full_markdown.find("-->", page_marker_pos)
-            if marker_end == -1:
-              page_num = None
-            else:
-              page_marker = full_markdown[page_marker_pos:marker_end + 3]
-              page_match = re.search(r"PAGE_START_(\d+)", page_marker)
-              page_num = int(page_match.group(1)) if page_match else None
-        search_pos = chunk_start + len(p_doc.page_content)
+        # 更新父文件的 Metadata (除了#/## header資訊以外，加入id,類別,檔名, page_num)
+        page_matches = re.findall(r"<!-- PAGE_START_(\d+) -->", p_doc.page_content)
+        start_match = re.match(r"\s*<!-- PAGE_START_(\d+) -->", p_doc.page_content)
+        if start_match:
+          current_page_num = int(start_match.group(1))
         
+        page_num = current_page_num
+        print(f"[DEBUG] chunk={p_idx}, current_page_before={current_page_num}, page_matches={page_matches}")
+        for new_match in page_matches:
+          k = int(new_match)
+          if k != page_num:
+            current_page_num = k
+        print(f"[DEBUG] chunk={p_idx}, page_num={page_num}, current_page_after={current_page_num}")
         p_metadata = p_doc.metadata.copy()
         p_metadata.update({"parent_id": parent_id, "category": category, "file_name": file_name, "page_num": page_num})
         
