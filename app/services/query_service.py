@@ -74,7 +74,7 @@ class QueryService:
       parent_json_path = settings.PARENT_CHUNKS_DIR / category / f"{pdf_stem}_parents.json"
       
       if parent_json_path.exists():
-          # 💡 優化 2：將原本會卡死 Event Loop 的同步讀檔，丟給執行緒池（to_thread）非同步處理！
+          # 💡 2：將原本會卡死 Event Loop 的同步讀檔，丟給執行緒池（to_thread）非同步處理！
           if str(parent_json_path) not in loaded_parent_files:
               loaded_parent_files[str(parent_json_path)] = await asyncio.to_thread(
                   self._read_parent_json, parent_json_path
@@ -111,20 +111,21 @@ class QueryService:
     for idx, doc in enumerate(reranked_top_docs):
       src_file = doc.metadata.get("file_name", "未知文件")
       parent_id = doc.metadata.get("parent_id", "未知 ID")  # 撈出 rerank後文件對應的 parent ID
-      
-      # 取出層級最高的 Markdown 標題作為人類可讀的章節導航
-      section_header = doc.metadata.get("Header1", doc.metadata.get("Header2", doc.metadata.get("Header3", "正文段落")))
+      page_num = doc.metadata.get("page_num", "未知頁碼")
+
+      # # 取出層級最高的 Markdown 標題作為人類可讀的章節導航
+      # section_header = doc.metadata.get("Header1", doc.metadata.get("Header2", doc.metadata.get("Header3", "正文段落")))
       
       # 給 LLM 閱讀的脈絡維持前台序號
-      context_str += f"[文件來源 {idx+1}]: {src_file} ({section_header})\n{doc.page_content}\n\n"
-      
+      context_str += (f"===== CONTEXT {idx + 1} =====\n來源文件: {src_file}\n頁碼: 第 {page_num} 頁\n文件內容: \n{doc.page_content}\n===== END CONTEXT {idx + 1} =====\n\n")
+
       # 增加引用資料方便回溯原始文件
       sources.append({
           "frontend_index": idx + 1,  # 供 Streamlit 前端渲染文件序號
           "file_name": src_file,
           "category": category,
           "parent_id": parent_id,     # 允許 LLM生成答案後人工反查 parent chunk JSON 
-          "header": section_header
+          "page_num": page_num
       })
 
     rag_prompt = FINQA_RAG_PROMPT_TEMPLATE.format(
