@@ -2,6 +2,7 @@ import logging
 from pathlib import Path
 import json
 import asyncio  # 💡 用於解決硬碟 I/O 阻塞
+from langchain_core.documents import Document
 
 # 引入微服務全域變數與模型常駐單例客戶端
 from config import settings
@@ -40,92 +41,107 @@ class QueryService:
     )
     
     if not dense_top_docs:
-        return {
-            "answer": "抱歉，在目前的資料庫中找不到與您問題相關的參考文件。請先上傳參考文件後再行提問。",
-            "sources": [],
-            "cached": False
-        }
+      return {
+          "answer": "抱歉，在目前的資料庫中找不到與您問題相關的參考文件。請先上傳參考文件後再行提問。",
+          "sources": [],
+          "cached": False
+      }
     logger.info(f"🧲 [Step 2] Dense Vector Search completed. Retrieved {len(dense_top_docs)} candidate chunks.")
 
-    # ====== Step 3: 子文檔去重 ======
-    seen_child_ids = set()
-    unique_child_docs = []
+    # ====== Step 3: 子文檔去重 & 蒐集 page_num ======
+    parent_page_map = {}
     for doc in dense_top_docs:
-        c_id = doc.metadata.get("child_id")
-        if c_id not in seen_child_ids:
-            seen_child_ids.add(c_id)
-            unique_child_docs.append(doc)
-    logger.info(f"🔀 Merged & De-duplicated child chunks.")
+      p_id = doc.metadata.get("parent_id")
+      page_num = doc.metadata.get("page_num")
+      if not p_id:
+        continue
+      
+      if p_id not in parent_page_map:
+        parent_page_map[p_id] = {
+          "file_name": doc.metadata.get("file_name"),
+          "page_num": set()
+        }
+      if page_num is not None:
+        parent_page_map[p_id]["page_num"].add(page_num)
 
-    # ====== Step 4: 實體物理反查父文檔 (Parent Retrieval) ======
+    unique_parent_docs = []
+    for p_id, info in parent_page_map.items():
+      unique_parent_docs.append({
+        "parent_id": p_id,
+        "file_name": info["file_name"],
+        "page_num": sorted(info["page_num"])
+      })
+    logger.info(f"🔀 [Step 3] De-duplicated {len(dense_top_docs)} child chunks into {len(unique_parent_docs)} unique parents.")
+    
+    # ====== Step 4: 回查父文檔 (Parent Retrieval) ======
     parent_documents = []
     loaded_parent_files = {}  
-    seen_parent_ids = set()
 
-    for c_doc in unique_child_docs:   
-      p_id = c_doc.metadata.get("parent_id")
-      f_name = c_doc.metadata.get("file_name")
+    for p_doc in unique_parent_docs:   
+      p_id = p_doc["parent_id"]
+      f_name = p_doc["file_name"]
+      page_num_list = p_doc["page_num"]
       
-      if not p_id or p_id in seen_parent_ids:
-          continue
-      seen_parent_ids.add(p_id)
-      
+
       pdf_stem = Path(f_name).stem
       parent_json_path = settings.PARENT_CHUNKS_DIR / category / f"{pdf_stem}_parents.json"
       
+      # 💡 2：將原本會卡死 Event Loop 的同步讀檔，丟給執行緒池（to_thread）非同步處理！
       if parent_json_path.exists():
-          # 💡 2：將原本會卡死 Event Loop 的同步讀檔，丟給執行緒池（to_thread）非同步處理！
-          if str(parent_json_path) not in loaded_parent_files:
-              loaded_parent_files[str(parent_json_path)] = await asyncio.to_thread(
-                  self._read_parent_json, parent_json_path
-              )
-          
-          p_data = loaded_parent_files[str(parent_json_path)].get(p_id)
-          if p_data:
-              from langchain_core.documents import Document
-              parent_documents.append(Document(
-                  page_content=p_data["page_content"],
-                  metadata=p_data["metadata"]
-              ))
+        if str(parent_json_path) not in loaded_parent_files:
+          loaded_parent_files[str(parent_json_path)] = await asyncio.to_thread(
+            self._read_parent_json, parent_json_path
+          )
+        
+        p_data = loaded_parent_files[str(parent_json_path)].get(p_id)
+        if p_data:
+          p_metadata = p_data["metadata"].copy()
+          p_metadata["page_num_list"] = page_num_list
+
+          parent_documents.append(Document(
+            page_content=p_data["page_content"],
+            metadata=p_metadata
+          ))
 
     if not parent_documents:
-        return {
-            "answer": "抱歉，資料庫中無法尋獲對應的完整文檔架構。請重新上傳補充文件。",
-            "sources": [],
-            "cached": False
-        }
+      return {
+        "answer": "抱歉，資料庫中無法尋獲對應的完整文檔架構。請重新上傳補充文件。",
+        "sources": [],
+        "cached": False
+      }
     logger.info(f"📂 [Step 4] Parent Retrieval success. Loaded {len(parent_documents)} parent documents non-blockingly.")
     logger.info(f"🔎 Parent metadata sample: {parent_documents[0].metadata}")
     
     # ====== Step 5: Reranker 交叉深度重新評分 (動態讀取 Top K) ======
+    top_k_num = settings.RERANK_OUT_TOP_K
     reranked_top_docs = rerank_client.rerank(
         query=question,
         documents=parent_documents,
-        top_k=settings.RERANK_OUT_TOP_K
+        top_k=top_k_num
     )
-    logger.info(f"⚖️ [Step 5] CrossEncoder Reranking finished. Selected top core contexts.")
+    logger.info(f"⚖️ [Step 5] CrossEncoder Reranking finished. Selected top {top_k_num} contexts.")
 
     # ====== Step 6: 建立問答 Prompt 與 LLM 生成 ======
     context_str = ""
     sources = []
     for idx, doc in enumerate(reranked_top_docs):
       src_file = doc.metadata.get("file_name", "未知文件")
-      parent_id = doc.metadata.get("parent_id", "未知 ID")  # 撈出 rerank後文件對應的 parent ID
-      page_num = doc.metadata.get("page_num", "未知頁碼")
+      parent_id = doc.metadata.get("parent_id", "未知 ID")
+      page_num_list = doc.metadata.get("page_num_list", "未知頁碼")
 
-      # # 取出層級最高的 Markdown 標題作為人類可讀的章節導航
+      # # 取出層級最高的 Markdown 標題來定位來自哪個章節
       # section_header = doc.metadata.get("Header1", doc.metadata.get("Header2", doc.metadata.get("Header3", "正文段落")))
       
-      # 給 LLM 閱讀的脈絡維持前台序號
+      # 給 LLM 閱讀的脈絡維持前端序號
       context_str += (f"===== CONTEXT {idx + 1} =====\n來源文件: {src_file}\n頁碼: 第 {page_num} 頁\n文件內容: \n{doc.page_content}\n===== END CONTEXT {idx + 1} =====\n\n")
 
       # 增加引用資料方便回溯原始文件
       sources.append({
-          "frontend_index": idx + 1,  # 供 Streamlit 前端渲染文件序號
+          "frontend_index": idx + 1,  # 供 Streamlit 前端查詢文件的序號
           "file_name": src_file,
           "category": category,
-          "parent_id": parent_id,     # 允許 LLM生成答案後人工反查 parent chunk JSON 
-          "page_num": page_num
+          "parent_id": parent_id,
+          "page_num_list": page_num_list
       })
 
     rag_prompt = FINQA_RAG_PROMPT_TEMPLATE.format(

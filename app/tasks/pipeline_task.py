@@ -158,24 +158,11 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
     parent_docs = MD_SPLITTER.split_text(full_markdown)
     parent_store = {}
     child_documents = []
-    current_page_num = None
-
+    
     for p_idx, p_doc in enumerate(parent_docs):
         parent_id = f"{pdf_path.stem}_P_{p_idx}"
         
         # 更新父文件的 Metadata (除了#/## header資訊以外，加入id,類別,檔名, page_num)
-        page_matches = re.findall(r"<!-- PAGE_START_(\d+) -->", p_doc.page_content)
-        start_match = re.match(r"\s*<!-- PAGE_START_(\d+) -->", p_doc.page_content)
-        if start_match:
-          current_page_num = int(start_match.group(1))
-        
-        page_num = current_page_num
-        print(f"[DEBUG] chunk={p_idx}, current_page_before={current_page_num}, page_matches={page_matches}")
-        for new_match in page_matches:
-          k = int(new_match)
-          if k != page_num:
-            current_page_num = k
-        print(f"[DEBUG] chunk={p_idx}, page_num={page_num}, current_page_after={current_page_num}")
         p_metadata = p_doc.metadata.copy()
         p_metadata.update({"parent_id": parent_id, "category": category, "file_name": file_name, "page_num": page_num})
         
@@ -187,17 +174,31 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
         
         # B. 將父文件進一步切成細碎子文件
         sub_chunks = CHILD_SPLITTER.split_text(p_doc.page_content)
+        current_page_num = None
         for c_idx, sub_chunk in enumerate(sub_chunks):
-            # 子文件 Metadata 必須挾帶父文檔 ID、#/##Header、類別等標記(知道子從哪個父來的)
-            c_metadata = p_metadata.copy()
-            c_metadata.update({
-                "parent_id": parent_id,
-                "child_id": f"{parent_id}_C_{c_idx}",
-                "category": category,
-                "file_name": file_name
-            })
+
+          page_matches = re.findall(r"<!-- PAGE_START_(\d+) -->", sub_chunk)
+          start_match = re.match(r"\s*<!-- PAGE_START_(\d+) -->", sub_chunk)
+          if start_match:
+            current_child_page_num = int(start_match.group(1))
+
+          page_num = current_child_page_num
+          for new_match in page_matches:
+            k = int(new_match)
+            if k != page_num:
+              current_page_num = k
             
-            child_documents.append(Document(page_content=sub_chunk, metadata=c_metadata))
+          # 子文件 Metadata 必須挾帶父文檔 ID、#/##Header、類別等標記(知道子從哪個父來的)
+          c_metadata = p_metadata.copy()
+          c_metadata.update({
+              "parent_id": parent_id,
+              "child_id": f"{parent_id}_C_{c_idx}",
+              "category": category,
+              "file_name": file_name,
+              "page_num": page_num
+          })
+          
+          child_documents.append(Document(page_content=sub_chunk, metadata=c_metadata))
             
     # 將父文件 JSON 存入資料夾 (Docker Bind Mount), 供 RAG backend/celery worker讀取
     parent_json_path = settings.PARENT_CHUNKS_DIR / category / f"{pdf_path.stem}_parents.json"
