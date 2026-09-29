@@ -24,11 +24,11 @@ class QueryRequest(BaseModel):
 
 
 class SourceDocumentTrace(BaseModel):
-    frontend_index: int = Field(..., description="前台渲染序號")
+    frontend_index: int = Field(..., description="前台查詢序號")
     file_name: str = Field(..., description="原始文件的完整檔案名稱")
     category: str = Field(..., description="文件業務類別")
-    parent_id: str = Field(..., description="🎯 實體硬碟 JSON 中的大父文檔唯一 ID（用於工程反查與人工審閱）")
-    header: str = Field(..., description="該文檔區塊所屬的最高層級 Markdown 章節標題")
+    parent_id: str = Field(..., description="實體硬碟 JSON 中的大父文檔唯一 ID（用於工程反查與人工審閱）")
+    page_num_list: list = Field(..., description="LLM生成的回答來自的原始文件頁數")
 
 class QueryResponse(BaseModel):
     answer: str = Field(..., description="由 LLM (vLLM/Ollama) 依據保證憑據所生成的繁體中文分析回答")

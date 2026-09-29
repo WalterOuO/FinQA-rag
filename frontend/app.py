@@ -60,7 +60,8 @@ with tab_qa:
                 if msg["role"] == "assistant" and msg.get("sources"):
                     with st.expander("🔍 資料引用處 "):
                         for src in msg["sources"]:
-                            st.markdown(f"**[{src['index']}] 原始檔案：** `{src['file_name']}` | **章節標題：** `{src['header']}`")
+                          page_num_text = "、".join(str(page) for page in src.get("page_num_list", []))
+                          st.markdown(f"**[{src['frontend_index']}] 原始檔案：**{src['file_name']}| **第 {page_num_text} 頁** | **所屬父文檔 ID：** {src['parent_id']}")
 
     # A-2. 接收使用者即時提問
     if prompt := st.chat_input("請輸入您想查詢的保單條款或財務財報問題..."):
@@ -91,7 +92,7 @@ with tab_qa:
                     with st.expander("🔍 資料引用處 "):
                       for src in sources:
                         page_num_text = "、".join(str(page) for page in src.get("page_num_list", []))
-                        st.markdown(f"**[{src['frontend_index']}] 原始檔案：** `{src['file_name']}` | **第 {page_num_text} 頁** | **所屬父文檔：**{src['parent_id']}")
+                        st.markdown(f"<strong>[{src['frontend_index']}] 原始檔案：</strong>{src['file_name']} | <strong>第 {page_num_text} 頁</strong> | <strong>所屬父文檔：</strong>{src['parent_id']}", unsafe_allow_html=True)
                   
                   # 儲存助理回覆至歷史
                   st.session_state.messages.append({
