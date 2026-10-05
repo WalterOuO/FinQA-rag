@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     # Query
     REDIS_SEMANTIC_SEARCH_ALGORITHM: str = "FLAT" # FLAT演算法（暴力搜尋）適合1萬筆以下規模數據，最準。HNSW適合規模大(記憶體開銷較大)95%準而已
     REDIS_SEMANTIC_CACHE_THRESHOLD: float = 0.92    # query與過往query相似度高於多少就直接給答案
-    HYBRID_SEARCH_TOP_K: int = 25
+    HYBRID_SEARCH_TOP_K: int = 3
     RERANK_OUT_TOP_K: int = 3
 
     # 6. 持久化本地儲存路徑
@@ -41,7 +41,7 @@ class Settings(BaseSettings):
     MARKDOWN_STORE_DIR: Path = PROJECT_ROOT / "storage" / "markdown_store"
     PARENT_CHUNKS_DIR: Path = PROJECT_ROOT / "storage" / "parent_chunks"
     
-    # 針對 Colab 測試用的本地 ChromaDB 路徑，💡部署到 Docker時 ChromaDB會變成 docker container
+    # 針對 Colab 測試用的本地 ChromaDB 路徑，部署到 Docker時 ChromaDB會變成 docker container
     # 本機部署 Docker時，可以 comment掉
     LOCAL_CHROMA_DB_DIR: Path = PROJECT_ROOT / "storage" / "child_vector_db"
 
@@ -61,23 +61,23 @@ class Settings(BaseSettings):
 
     # 允許從 .env 檔案自動讀取
     model_config = SettingsConfigDict(
-        env_file=PROJECT_ROOT / ".env", 
-        env_file_encoding="utf-8",
-        extra="ignore"
+      env_file=PROJECT_ROOT / ".env", 
+      env_file_encoding="utf-8",
+      extra="ignore"
     )
     
     def init_directories(self):
-        # 定義需要進行業務物理隔離的類別
-        categories = ["insurance", "finance"]
+      # 定義需要進行業務物理隔離的類別
+      categories = ["military", "finance"]
 
-        """確保所有實體儲存目錄在上線前皆已自動建立"""
-        for cat in categories:
-            (self.PDF_STORE_DIR / cat).mkdir(parents=True, exist_ok=True)
-            (self.MARKDOWN_STORE_DIR / cat).mkdir(parents=True, exist_ok=True)
-            (self.PARENT_CHUNKS_DIR / cat).mkdir(parents=True, exist_ok=True)
+      """確保所有實體儲存目錄在上線前皆已自動建立"""
+      for cat in categories:
+        (self.PDF_STORE_DIR / cat).mkdir(parents=True, exist_ok=True)
+        (self.MARKDOWN_STORE_DIR / cat).mkdir(parents=True, exist_ok=True)
+        (self.PARENT_CHUNKS_DIR / cat).mkdir(parents=True, exist_ok=True)
 
-        if self.CHROMA_HOST in ["localhost", "127.0.0.1"] or "chromadb" not in self.CHROMA_HOST:
-            self.LOCAL_CHROMA_DB_DIR.mkdir(parents=True, exist_ok=True)
+      if self.CHROMA_HOST in ["localhost", "127.0.0.1"] or "chromadb" not in self.CHROMA_HOST:
+        self.LOCAL_CHROMA_DB_DIR.mkdir(parents=True, exist_ok=True)
 
 # 實例化全域唯一的 settings 物件
 settings = Settings()

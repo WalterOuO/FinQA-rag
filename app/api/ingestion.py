@@ -1,7 +1,7 @@
 import logging
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException, status
 from models.schemas import DocumentCategory, UploadResponse
-from services.upload_service import upload_service
+from services.ingestion_service import ingestion_service
 from config import settings
 
 logger = logging.getLogger(__name__)
@@ -11,11 +11,11 @@ router = APIRouter(prefix="/upload", tags=["Upload"])
 @router.post("", response_model=UploadResponse, status_code=status.HTTP_202_ACCEPTED)
 async def upload_pdf_document(
     file: UploadFile = File(..., description="要上傳的保險或財務 PDF 檔案"),
-    category: DocumentCategory = Form(..., description="文件類別，限定：insurance 或 finance")
+    category: DocumentCategory = Form(..., description="文件類別，限定：military 或 finance")
 ):
     """
     接收 PDF 文件接口：
-    1. 透過 Enum 驗證業務類別 (insurance/finance)
+    1. 透過 Enum 驗證業務類別 (military/finance)
     2. 驗證副檔名必須為 pdf
     3. 落地保存檔案並派發任務給 Celery 後台 Pipeline
     """
@@ -38,7 +38,7 @@ async def upload_pdf_document(
 
     try:
       # 呼叫上傳服務層處理文件的解析與派發，直接傳入 pdf, Enum 物件
-      result = await upload_service.handle_pdf_upload(file, category)
+      result = await ingestion_service.handle_pdf_upload(file, category)
       return result
     except Exception as e:
       logger.error(f"Failed to process upload API request: {str(e)}")

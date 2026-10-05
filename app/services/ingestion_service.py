@@ -6,9 +6,6 @@ from celery import uuid
 from fastapi import UploadFile
 from config import settings
 from models.schemas import DocumentCategory
-
-# 💡 延遲引入（Lazy Import）: upload.py不先引入pipeline (含有celery task)
-# 防止 FastAPI 啟動時與 Celery 發生循環引入報錯
 from tasks.pipeline_task import process_pdf_pipeline
 
 logger = logging.getLogger(__name__)
@@ -16,7 +13,7 @@ logger = logging.getLogger(__name__)
 class UploadService:
   async def handle_pdf_upload(self, file: UploadFile, category: DocumentCategory) -> dict:
     """
-    處理 PDF 文件落地存檔，並指派 Celery Pipeline 非同步任務
+    處理 PDF 文件存檔，並派發 Celery Pipeline 非同步任務
     """
     # 💡 乾淨的檔名，並精準定位到 /storage/pdf_store/{insurance|finance}/ 檔案夾
     safe_filename = file.filename.replace(" ", "_")
@@ -28,9 +25,9 @@ class UploadService:
     content = await file.read()
     try:
       with open(saved_file_path, "wb") as buffer:
-          buffer.write(content)
-          buffer.flush()  # 強制將 Python 緩衝區寫入作業系統
-          os.fsync(buffer.fileno())  # 強制將快取同步到磁碟
+        buffer.write(content)
+        buffer.flush()  # 強制將 Python 緩衝區寫入作業系統
+        os.fsync(buffer.fileno())  # 強制將快取同步到磁碟
     finally:
       await file.close()  # 釋放檔案控制權
         
@@ -50,12 +47,12 @@ class UploadService:
 
     # 發送非同步任務至 Redis Broker。傳入 category.value 確保 pipeline_task 的資料標記完全一致
     task = process_pdf_pipeline.apply_async(
-        kwargs={
-            "file_path": str(saved_file_path),
-            "category": category.value,
-            "file_name": file.filename
-        },
-        task_id=task_id
+      kwargs={
+          "file_path": str(saved_file_path),
+          "category": category.value,
+          "file_name": file.filename
+      },
+      task_id=task_id
     )
     
     logger.info(f"Task dispatched successfully. Registered Task ID: {task.id}")
@@ -69,4 +66,4 @@ class UploadService:
     }
 
 # 全域單例
-upload_service = UploadService()
+ingestion_service = UploadService()
