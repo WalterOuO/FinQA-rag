@@ -15,7 +15,7 @@ OUTPUT_FILE = EVALUATION_DIR / "evaluation_results.json"
 PROMPT_FILE = EVALUATION_DIR / "judge_prompt.txt"
 
 VLLM_URL = "http://127.0.0.1:8000"
-JUDGE_MODEL = "Llama-3.1-8B-Instruct-GPTQ-Int8"
+JUDGE_MODEL = "neuralmagic/Meta-Llama-3.1-8B-Instruct-quantized.w8a8"
 
 TOP_K = 3
 

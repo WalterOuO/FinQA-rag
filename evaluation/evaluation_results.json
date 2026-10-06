@@ -1,0 +1,2063 @@
+{
+  "summary": {
+    "total_questions": 50,
+    "MRR": 0.83,
+    "Hit@3": 0.88,
+    "average_answer_correctness": 2.1,
+    "average_faithfulness": 1.64,
+    "average_request_latency_seconds": 2.8659,
+    "average_inference_latency_seconds": 2.8068
+  },
+  "results": [
+    {
+      "id": 1,
+      "quetsion": "直轄市政府接獲內政部實施召集作業之命令後，應於召集日幾日前將演訓召集令及預備員通知書送達備役役男？",
+      "category": "military",
+      "ground_truth": "應於召集日十日前送達備役役男。",
+      "source_file": "服役期滿後召集服勤實施辦法修正條文(發布).pdf",
+      "generated_answer": "直轄市政府接獲內政部實施召集作業之命令後，應於召集日前十日將演訓召集令及預備員通知書送達備役役男。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "服役期滿後召集服勤實施辦法修正條文(發布).pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.5,
+      "hit_at_3": true,
+      "answer_correctness": 4,
+      "faithfulness": 4,
+      "judge_reason": "答案正確，但表達方式稍嫌冗長，缺少非核心的修飾詞，但不影響主要結論。文本忠實度良好，但有少量無關緊要的語氣連接詞，未引入任何新實體、新數據或新概念。",
+      "request_latency_seconds": 4.3572,
+      "performance": {
+        "total_latency_seconds": 3.041709,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1372,
+        "completion_tokens": 42,
+        "total_tokens": 1414
+      }
+    },
+    {
+      "id": 2,
+      "quetsion": "若家屬罹患癌症，可以因為家庭因素申請服替代役嗎？",
+      "category": "military",
+      "ground_truth": "家屬經醫師診斷，罹患癌症第二期以上且經核定為重大傷病者，得比照認定為中度以上身心障礙，可以因家庭因素申請服替代役。",
+      "source_file": "役男申請服替代役辦法.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。根据提供的文件内容，没有提到因家屬罹患癌症而申请服替代役的相关规定。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "役男申請服替代役辦法.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，與 Ground Truth 完全矛盾。",
+      "request_latency_seconds": 2.4054,
+      "performance": {
+        "total_latency_seconds": 2.368962,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1402,
+        "completion_tokens": 33,
+        "total_tokens": 1435
+      }
+    },
+    {
+      "id": 3,
+      "quetsion": "115 年度研發替代役報名時應準備哪些文件？",
+      "category": "military",
+      "ground_truth": "中華民國國民身分證正反面電子檔、報名學程之學歷證明(在學證明(學生證)或畢業證書)正反面電子檔。學歷證明文件若為國外證明文件，須經我國駐外單位驗證及檢附中文譯本電子檔。",
+      "source_file": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+      "generated_answer": "115年度研發替代役報名時應準備身分證及學歷證明文件影本。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 2,
+      "faithfulness": 0,
+      "judge_reason": " Generated Answer 中提到的「學歷證明文件影本」與 Ground Truth 中的「學歷證明文件電子檔」不符，且 Generated Answer 中缺少了「身分證正反面電子檔」的資訊。",
+      "request_latency_seconds": 2.3623,
+      "performance": {
+        "total_latency_seconds": 2.328152,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1513,
+        "completion_tokens": 25,
+        "total_tokens": 1538
+      }
+    },
+    {
+      "id": 4,
+      "quetsion": "直轄市列管的替代役備役役男人數每超過多少人數時，可以增設一個勤務編組管理中心？",
+      "category": "military",
+      "ground_truth": "每超過一萬人者，得增設一個編管中心。",
+      "source_file": "175897-替代役備役役男勤務編組管理中心設置要點.pdf",
+      "generated_answer": "直轄市列管的替代役備役役男人數每超過一萬人時，可以增設一個勤務編組管理中心。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役備役役男勤務編組管理中心設置要點.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.0,
+      "hit_at_3": false,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 2.3283,
+      "performance": {
+        "total_latency_seconds": 2.295598,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1375,
+        "completion_tokens": 32,
+        "total_tokens": 1407
+      }
+    },
+    {
+      "id": 5,
+      "quetsion": "如果因宗教因素申請服替代役，申請時需提供哪些文件？",
+      "category": "military",
+      "ground_truth": "自傳、理由書、切結書、政府登記立案之宗教團體出具之證明文件。",
+      "source_file": "役男申請服替代役辦法.pdf",
+      "generated_answer": "申請因宗教因素服替代役時，需檢具下列文件：\n一、自傳。\n二、理由書。\n三、切結書。\n四、政府登記立案之宗教團體出具之證明文件。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "役男申請服替代役辦法.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "役男申請服替代役辦法.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 2.2706,
+      "performance": {
+        "total_latency_seconds": 2.237098,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 988,
+        "completion_tokens": 47,
+        "total_tokens": 1035
+      }
+    },
+    {
+      "id": 6,
+      "quetsion": "需用機關實施演訓召集時，應於辦理召集多久前向內政部提出申請？",
+      "category": "military",
+      "ground_truth": "應於辦理召集前一年之九月底前向內政部提出申請。",
+      "source_file": "服役期滿後召集服勤實施辦法修正條文(發布).pdf",
+      "generated_answer": "需用機關實施演訓召集時，應於辦理召集計畫經內政部核定後一個月內確定召集日期及各項時程，因此應於辦理召集計畫前向內政部提出申請。根据文件内容，需用机关应在接到内政部实施召集命令后的一个月内确定召集日期及相关事项。因此，需在一个月前即着手准备并提出申请。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.0,
+      "hit_at_3": false,
+      "answer_correctness": 2,
+      "faithfulness": 0,
+      "judge_reason": " Generated Answer 中提到的「需用機關應於召集計畫經內政部核定後一個月內確定召集日期及各項時程」與 Context 中的內容不符，錯誤地延遲了申請時間。另外， Generated Answer 中提到的「需用機關應在接到內政部實施召集命令后的一个月内确定召集日期及相关事项」也與 Context 中的內容不符。",
+      "request_latency_seconds": 4.1359,
+      "performance": {
+        "total_latency_seconds": 4.102932,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1386,
+        "completion_tokens": 85,
+        "total_tokens": 1471
+      }
+    },
+    {
+      "id": 7,
+      "quetsion": "研發及產業訓儲替代役基金的收支與運用由什麼單位管理？該單位的委員編制為何？",
+      "category": "military",
+      "ground_truth": "由研發及產業訓儲替代役基金管理會管理。設委員十一人至十三人，其中一人為召集人，由內政部部長或其指派人員兼任之，其餘委員，由內政部就內政部替代役訓練及管理中心主任及有關機關（構）代表、學者、專家派（聘）兼之。",
+      "source_file": "研發及產業訓儲替代役基金收支保管及運用辦法.pdf",
+      "generated_answer": "研發及產業訓儲替代役基金的收支與運用由研發及產業訓儲替代役基金管理會管理。該單位的委員編制為十一人至十三人，其中一人為召集人，由本部部長或其指派人員兼任之；其餘委員由本部就本部替代役訓練及管理中心主任及有關機關（構）代表、學者、專家派（聘）兼之。任期二年，期滿得續派（聘）之。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "研發及產業訓儲替代役基金收支保管及運用辦法.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "研發及產業訓儲替代役基金收支保管及運用辦法.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.5,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 4.99,
+      "performance": {
+        "total_latency_seconds": 4.947346,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1377,
+        "completion_tokens": 109,
+        "total_tokens": 1486
+      }
+    },
+    {
+      "id": 8,
+      "quetsion": " 一般替代役役男114年度年終工作獎金發放日期為何時？",
+      "category": "military",
+      "ground_truth": "115 年02月06日。",
+      "source_file": "114年替代役年終獎金發放說明_1141106.pdf",
+      "generated_answer": "一般替代役役男114年度年終工作獎金發放日期為115年02月06日。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "114年替代役年終獎金發放說明_1141106.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "114年替代役年終獎金發放說明_1141106.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 2.2527,
+      "performance": {
+        "total_latency_seconds": 2.222412,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1346,
+        "completion_tokens": 30,
+        "total_tokens": 1376
+      }
+    },
+    {
+      "id": 9,
+      "quetsion": "如果有中華民國六十五年次出生，尚未徵集入營之役男，要申請服替代役者，該如何處理？",
+      "category": "military",
+      "ground_truth": "由主管機關會商國防部專案辦理。",
+      "source_file": "替代役實施條例施行細則.pdf",
+      "generated_answer": "如果有中華民國六十五年次出生，尚未徵集入營之役男，要申請服替代役者，可以依照以下步驟處理：\n\n1. 徵兵檢查為常備役體位者，得申請服替代役。\n2. 申請時需確認是否符合不得申請的情形，如是否有緩徵、申請改判體位或延期徵集等事故，或具備預備軍、士官資格等。\n3. 如因犯罪於法院審理中或經判決有罪確定，經替代役審議委員會審議通過後，主管機關得不予許可其申請服替代役或限制其所服替代役類（役）別，但少年犯罪、過失犯或受緩刑之宣告而未經撤銷者除外。\n4. 如符合申請資格，可優先考慮因宗教、家庭因素，或具備國家考試及格、相關學歷、經歷及專業訓練等因素，以優先甄試。\n5. 具國內或符合教育部採認規定之國外大學校院碩士以上學歷者，可申請並經甄選服研發替代役；具國內或符合教育部採認規定之國外專科學校或大學校院畢業，獲有副學士以上學歷者，可申請並經甄選服產業訓儲替代役。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "役男申請服替代役辦法.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.0,
+      "hit_at_3": false,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 的答案正確性與文本忠實度均為 0 分，因為答案內容與 Ground Truth 完全不符，且 Generated Answer 中的資訊並未在 Context 中找到直接證據。",
+      "request_latency_seconds": 11.5502,
+      "performance": {
+        "total_latency_seconds": 11.517833,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1426,
+        "completion_tokens": 296,
+        "total_tokens": 1722
+      }
+    },
+    {
+      "id": 10,
+      "quetsion": "研發及產業訓儲替代役基金的來源為何？",
+      "category": "military",
+      "ground_truth": "成立第一年時由政府循預算程序撥款本基金之開辦費、用人單位繳納之研究發展費及產業訓儲費收入、受贈收入、本基金之孳息收入、其他有關收入。",
+      "source_file": "研發及產業訓儲替代役基金收支保管及運用辦法.pdf",
+      "generated_answer": "研發及產業訓儲替代役基金的來源包括：\n一、本基金成立第一年，得由政府循預算程序撥款本基金之開辦費。\n二、用人單位繳納之研究發展費及產業訓儲費收入。\n三、受贈收入。\n四、本基金之孳息收入。\n五、其他有關收入。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "研發及產業訓儲替代役基金收支保管及運用辦法.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "研發及產業訓儲替代役基金收支保管及運用辦法.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 3.7942,
+      "performance": {
+        "total_latency_seconds": 3.761802,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1364,
+        "completion_tokens": 74,
+        "total_tokens": 1438
+      }
+    },
+    {
+      "id": 11,
+      "quetsion": "如果已獲行政院國家發展基金創業天使投資方案之投資者，想要申請於自創事業服研發替代役，那新創事業的設立年數有什麼限制？",
+      "category": "military",
+      "ground_truth": "申請之新創事業應為依法設立2年以上未滿5年之事業。",
+      "source_file": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+      "generated_answer": "新創事業的設立年數需在2年以上未滿5年之間。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 4,
+      "faithfulness": 2,
+      "judge_reason": "答案正確，但表達方式稍嫌冗長，缺少非核心的修飾詞，但不影響主要結論。答案中包含了 Context 沒有提到的額外資訊，新創事業的設立年數需在2年以上未滿5年之間，與 Context 中的規定一致，但 Context 中並未明確提及此限制。",
+      "request_latency_seconds": 2.1703,
+      "performance": {
+        "total_latency_seconds": 2.136505,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1483,
+        "completion_tokens": 19,
+        "total_tokens": 1502
+      }
+    },
+    {
+      "id": 12,
+      "quetsion": "勤務編組召集替代役備役役男候用時，編管中心選取役男的順序為何？",
+      "category": "military",
+      "ground_truth": "退役八年內役男，以較晚退役優先較早退役者之順序進行召集。",
+      "source_file": "175896-替代役備役役男勤務編組及召集作業須知.pdf",
+      "generated_answer": "編管中心在選取役男時，以較晚退役者優先較早退役者之順序進行訪問。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組管理中心設置要點.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.0,
+      "hit_at_3": false,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 中的答案正確性與文本忠實度均為 0 分，因為答案完全錯誤，與 Ground Truth 完全矛盾。",
+      "request_latency_seconds": 2.28,
+      "performance": {
+        "total_latency_seconds": 2.246997,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1359,
+        "completion_tokens": 29,
+        "total_tokens": 1388
+      }
+    },
+    {
+      "id": 13,
+      "quetsion": "115 年度研發替代役第2次甄選時，役男在哪個期間可以線上選填用人單位？",
+      "category": "military",
+      "ground_truth": "115年3月14日(六)至4月28日(二)。",
+      "source_file": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+      "generated_answer": "115年度研發替代役第2次甄選時，役男可以在115年3月14日（六）至4月28日（二）期間線上選填用人單位。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 3.1396,
+      "performance": {
+        "total_latency_seconds": 3.101897,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1477,
+        "completion_tokens": 47,
+        "total_tokens": 1524
+      }
+    },
+    {
+      "id": 14,
+      "quetsion": "如何計算一般替代役役男114年度應發年終工作獎金？",
+      "category": "military",
+      "ground_truth": "俸給 * 1.5個月 * (服勤月數/12)。",
+      "source_file": "114年替代役年終獎金發放說明_1141106.pdf",
+      "generated_answer": "一般替代役役男114年度應發年終工作獎金計算方式為：俸給 × 1.5個月 × (服勤月數/12)。其中，服勤月數以役男實際服役月數比例計算，當年度前後月天數加總30日(含)內者以1個月計，31日(含)以上者以2個月計。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "114年替代役年終獎金發放說明_1141106.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "114年替代役年終獎金發放說明_1141106.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 4.1035,
+      "performance": {
+        "total_latency_seconds": 4.071466,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1101,
+        "completion_tokens": 94,
+        "total_tokens": 1195
+      }
+    },
+    {
+      "id": 15,
+      "quetsion": "替代役役男傷病停役於停役複檢時，若拒絕檢查或不與醫師配合，該項檢查結果為何？",
+      "category": "military",
+      "ground_truth": "替代役役男於停役複檢時，拒絕檢查或不與醫師配合，致無法獲得正確結果者，該項檢查推定為正常。",
+      "source_file": "替代役役男傷病停役檢定標準.pdf",
+      "generated_answer": "該項檢查推定為正常。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役役男傷病停役檢定標準.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役役男傷病停役檢定標準.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役役男傷病停役檢定標準.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，與 Ground Truth 完全矛盾。",
+      "request_latency_seconds": 1.4508,
+      "performance": {
+        "total_latency_seconds": 1.420208,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1274,
+        "completion_tokens": 9,
+        "total_tokens": 1283
+      }
+    },
+    {
+      "id": 16,
+      "quetsion": "如果警察大學畢業生接受一般替代役基礎訓練後一直沒找到工作，需要補服役嗎？",
+      "category": "military",
+      "ground_truth": "若接受一般替代役基礎訓練後，三年內未能分發任用或分發後未能履行規定之服務年限者，補服應服之一般替代役役期。",
+      "source_file": "替代役實施條例.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供的資訊",
+      "request_latency_seconds": 1.1682,
+      "performance": {
+        "total_latency_seconds": 1.135958,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 991,
+        "completion_tokens": 12,
+        "total_tokens": 1003
+      }
+    },
+    {
+      "id": 17,
+      "quetsion": "如果想要申請於自創事業服研發替代役，但是自己的新創事業是某個集團旗下的子公司，那可以用母公司的名義申請嗎？",
+      "category": "military",
+      "ground_truth": "不得以「集團名義」申請，應以新創事業之名義申請。",
+      "source_file": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。文件中未提供關於母公司是否可以替子公司申請自創事業服研發替代役的相關規定。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "新創事業負責人申請於自創事業服研發替代役實施計畫1111212公告版.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且答案內容與 Context 完全無關。",
+      "request_latency_seconds": 2.2811,
+      "performance": {
+        "total_latency_seconds": 2.244186,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1228,
+        "completion_tokens": 35,
+        "total_tokens": 1263
+      }
+    },
+    {
+      "id": 18,
+      "quetsion": "115年度役政人員防災士培訓計畫的術科測驗內容有哪些？",
+      "category": "military",
+      "ground_truth": "CPR、AED及包紮止血固定(含止血帶操作)。",
+      "source_file": "115年度役政人員防災士培訓計畫.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。文件中提供了關於115年度役政人員防災士培訓計畫的概述、對象、預計人數、檢核表等資訊，但並未提到術科測驗的具體內容。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "115年度役政人員防災士培訓計畫.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "115年度役政人員防災士培訓計畫.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "115年度役政人員防災士培訓計畫.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且答案內容與 Context 完全無關。",
+      "request_latency_seconds": 3.4791,
+      "performance": {
+        "total_latency_seconds": 3.437901,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1426,
+        "completion_tokens": 59,
+        "total_tokens": 1485
+      }
+    },
+    {
+      "id": 19,
+      "quetsion": "請問防災志工組織培訓的基礎，是哪一個國家哪一個城市於哪一年推動的哪一個計畫奠定基礎的？",
+      "category": "military",
+      "ground_truth": "美國洛杉磯市消防局在 1986 年推動 Community Emergency Response Team (CERT) 培訓計畫，為防災志工組織的培訓奠定了基礎。",
+      "source_file": "臺灣防災士教育訓練基本教材-1-17.pdf",
+      "generated_answer": "防災志工組織培訓的基礎，是美國洛杉磯市於1986年推動的Community Emergency Response Team (CERT)計畫所奠定的基礎。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "臺灣防災士教育訓練基本教材-1-17.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "臺灣防災士教育訓練基本教材-1-17.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "臺灣防災士教育訓練基本教材-1-17.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 0,
+      "judge_reason": "答案完全正確，但無法在提供的 Context 中找到直接證據。",
+      "request_latency_seconds": 2.6492,
+      "performance": {
+        "total_latency_seconds": 2.609227,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1379,
+        "completion_tokens": 38,
+        "total_tokens": 1417
+      }
+    },
+    {
+      "id": 20,
+      "quetsion": "一般替代役役男分發至服勤單位後幾日內，用人機關要完成替代役的登錄？",
+      "category": "military",
+      "ground_truth": "需用機關應於一般替代役役男分發至服勤單位後十五日內完成役男服勤單位（處所）登錄。",
+      "source_file": "替代役實施條例施行細則.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役實施條例施行細則.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "115年度研發替代役役男報名暨用人單位甄選作業實施計畫(1141120公告版).pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有 Context 支持。",
+      "request_latency_seconds": 1.4268,
+      "performance": {
+        "total_latency_seconds": 1.399278,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1165,
+        "completion_tokens": 12,
+        "total_tokens": 1177
+      }
+    },
+    {
+      "id": 21,
+      "quetsion": "替代役備役役男勤務編組管理中心的秘書、幹事、輔導員及諮詢委員，任期多長？",
+      "category": "military",
+      "ground_truth": "任期二年，績效優異者得連任。",
+      "source_file": "175897-替代役備役役男勤務編組管理中心設置要點.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役備役役男勤務編組管理中心設置要點.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.0,
+      "hit_at_3": false,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，無法找到 Context 中相關資訊，且答案方向嚴重偏離。",
+      "request_latency_seconds": 1.9976,
+      "performance": {
+        "total_latency_seconds": 1.968729,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1507,
+        "completion_tokens": 12,
+        "total_tokens": 1519
+      }
+    },
+    {
+      "id": 22,
+      "quetsion": "115年度役政人員防災士培訓計畫的培訓對象為何？",
+      "category": "military",
+      "ground_truth": "內政部全體役政同仁、各縣市政府暨所屬公所役政人員、參與防災協作中心工作人員與研發替代役用人單位人員。",
+      "source_file": "115年度役政人員防災士培訓計畫.pdf",
+      "generated_answer": "115年度役政人員防災士培訓計畫的培訓對象包括內政部全體役政同仁、各縣市政府暨所屬公所役政人員、參與防災協作中心工作人員與研發替代役用人單位人員。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "115年度役政人員防災士培訓計畫.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "115年度役政人員防災士培訓計畫.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "115年度役政人員防災士培訓計畫.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 2.1859,
+      "performance": {
+        "total_latency_seconds": 2.154911,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1426,
+        "completion_tokens": 58,
+        "total_tokens": 1484
+      }
+    },
+    {
+      "id": 23,
+      "quetsion": "替代役役男在哪些情況會停役？",
+      "category": "military",
+      "ground_truth": "經診斷確定罹患足以危害團體健康及安全之疾病者、傷病經鑑定不堪服役者、經通緝、羈押，或經觀察勒戒或宣告徒刑、拘役確定在執行中者、受保安處分、強制戒治、感訓處分、安置輔導處分或感化教育處分裁判確定，在執行中者、擅離替代役職役累計逾七日者、失蹤逾三個月者。",
+      "source_file": "替代役實施條例.pdf",
+      "generated_answer": "替代役役男在以下情況會停役：\n一、經診斷確定罹患足以危害團體健康及安全之疾病者。\n二、傷病經鑑定不堪服役者。\n三、經通緝、羈押，或經觀察勒戒或宣告徒刑、拘役確定在執行中者。\n四、受保安處分、強制戒治、感訓處分、安置輔導處分或感化教育處分裁判確定，在執行中者。\n五、擅離替代役職役累計逾七日者。\n六、失蹤逾三個月者。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役實施條例.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "服役期滿後召集服勤實施辦法修正條文(發布).pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 4,
+      "faithfulness": 2,
+      "judge_reason": "答案正確，但缺少了第 11 條的內容，且引入了 Context 2 中的內容。",
+      "request_latency_seconds": 5.855,
+      "performance": {
+        "total_latency_seconds": 5.691222,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1290,
+        "completion_tokens": 132,
+        "total_tokens": 1422
+      }
+    },
+    {
+      "id": 24,
+      "quetsion": "替代役備役役男在非常事變或戰時， 防災救護組的工作是什麼？",
+      "category": "military",
+      "ground_truth": "支援緊急救護、災害搶救、消防勤務及緊急應變等工作。",
+      "source_file": "175896-替代役備役役男勤務編組及召集作業須知.pdf",
+      "generated_answer": "替代役備役役男在非常事變或戰時，防災救護組的工作包括參與各項災害防救工作。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役備役役男勤務編組及召集作業須知.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 0.0,
+      "hit_at_3": false,
+      "answer_correctness": 4,
+      "faithfulness": 3,
+      "judge_reason": "答案基本正確，但缺少非核心的修飾詞，且部分資訊在 Context 中找不到直接證據。",
+      "request_latency_seconds": 2.1006,
+      "performance": {
+        "total_latency_seconds": 2.068583,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1177,
+        "completion_tokens": 31,
+        "total_tokens": 1208
+      }
+    },
+    {
+      "id": 25,
+      "quetsion": "替代役役男若患有肝臟血管瘤，經醫師診斷為良性腫瘤，是否可以申請停役？",
+      "category": "military",
+      "ground_truth": "若替代役役男之肝臟血管瘤經影像學檢查，直徑達五公分以上，可申請停役。",
+      "source_file": "替代役役男傷病停役檢定標準.pdf",
+      "generated_answer": "根據文件內容，肝臟血管瘤經影像學檢查，直徑達五公分以上，且為良性腫瘤時，會影響運動功能。因此，若替代役役男患有肝臟血管瘤且被診斷為良性腫瘤，符合停役標準，可以申請停役。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "替代役役男傷病停役檢定標準.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "替代役役男傷病停役檢定標準.pdf",
+          "category": "military"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "替代役役男傷病停役檢定標準.pdf",
+          "category": "military"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 4,
+      "faithfulness": 2,
+      "judge_reason": "答案基本正確，但存在次要資訊缺漏，且部分資訊為 Context 沒有提到的額外資訊。",
+      "request_latency_seconds": 3.8697,
+      "performance": {
+        "total_latency_seconds": 3.833302,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1471,
+        "completion_tokens": 67,
+        "total_tokens": 1538
+      }
+    },
+    {
+      "id": 26,
+      "quetsion": "聯華電子合併綜合損益表在2023年第1季的營業利益是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "14,480,698仟元",
+      "source_file": "162.pdf",
+      "generated_answer": "聯華電子合併綜合損益表在2023年第1季的營業利益是19,224,440新台幣仟元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "162.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "211.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 1,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，與 Ground Truth 完全矛盾。",
+      "request_latency_seconds": 2.5842,
+      "performance": {
+        "total_latency_seconds": 2.553909,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1288,
+        "completion_tokens": 40,
+        "total_tokens": 1328
+      }
+    },
+    {
+      "id": 27,
+      "quetsion": "光寶科技股份有限公司的會計師核閱報告中，部分非重要子公司未經會計師核閱的2023年第1季資產總額占合併資產總額的百分比是多少？",
+      "category": "finance",
+      "ground_truth": "34.96%",
+      "source_file": "918.pdf",
+      "generated_answer": "光寶科技股份有限公司的會計師核閱報告中，部分非重要子公司未經會計師核閱的2023年第1季資產總額占合併資產總額的百分比為34.96%。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "918.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 3.4264,
+      "performance": {
+        "total_latency_seconds": 3.395046,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1436,
+        "completion_tokens": 56,
+        "total_tokens": 1492
+      }
+    },
+    {
+      "id": 28,
+      "quetsion": "長榮海運於2022年第3季的合併權益變動表中，民國111年度之本期綜合損益總額之權益總額為多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "339,404,989仟元",
+      "source_file": "351.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "351.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "918.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有 Context 支持。",
+      "request_latency_seconds": 1.5596,
+      "performance": {
+        "total_latency_seconds": 1.530888,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1222,
+        "completion_tokens": 12,
+        "total_tokens": 1234
+      }
+    },
+    {
+      "id": 29,
+      "quetsion": "亞德客-KY公司在2022年第3季的投資活動的淨現金流出是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "3,173,704仟元",
+      "source_file": "612.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "612.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "671.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "671.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，無法提供正確的答案，且完全沒有 Context 支持。",
+      "request_latency_seconds": 2.1003,
+      "performance": {
+        "total_latency_seconds": 2.073989,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1546,
+        "completion_tokens": 12,
+        "total_tokens": 1558
+      }
+    },
+    {
+      "id": 30,
+      "quetsion": "2022年第3季，聯華電子及子公司因進口機器設備開立但未使用的信用狀約為多少億元？",
+      "category": "finance",
+      "ground_truth": "8億元",
+      "source_file": "166.pdf",
+      "generated_answer": "截至民國一一一年九月三十日止，聯華電子及子公司因進口機器設備開立但未使用的信用狀約為8億元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "166.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "256.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "256.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 4,
+      "faithfulness": 2,
+      "judge_reason": "答案正確，但表達方式略嫌冗長，且提到了不相關的日期。",
+      "request_latency_seconds": 2.5068,
+      "performance": {
+        "total_latency_seconds": 2.47818,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1340,
+        "completion_tokens": 35,
+        "total_tokens": 1375
+      }
+    },
+    {
+      "id": 31,
+      "quetsion": "和泰汽車在合併綜合損益表中，2023年第一季度的基本每股盈餘是多少元？",
+      "category": "finance",
+      "ground_truth": "9.27元",
+      "source_file": "710.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "710.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "710.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "372.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法從 Context 中找到相關資訊，且 Generated Answer 表示資料庫內的文件不足以回答此問題。",
+      "request_latency_seconds": 2.0194,
+      "performance": {
+        "total_latency_seconds": 1.993972,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1502,
+        "completion_tokens": 12,
+        "total_tokens": 1514
+      }
+    },
+    {
+      "id": 32,
+      "quetsion": "中華電信股份有限公司於2023年第3季的合併資產負債表中，民國112年9月30日的流動資產總計為多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "96,905,433仟元",
+      "source_file": "793.pdf",
+      "generated_answer": "中華電信股份有限公司於2023年第3季的合併資產負債表中，民國112年9月30日的流動資產總計為32,005,368新台幣仟元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "793.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "671.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "671.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 中的數據與 Context 1 中的數據不符，且答案方向嚴重偏離。",
+      "request_latency_seconds": 3.8234,
+      "performance": {
+        "total_latency_seconds": 3.795493,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1541,
+        "completion_tokens": 61,
+        "total_tokens": 1602
+      }
+    },
+    {
+      "id": 33,
+      "quetsion": "聯華電子在2023年第3季的合併權益變動表中，2023年第3季餘額的權益總額是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "350,016,189仟元",
+      "source_file": "209.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "162.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "209.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "166.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 0.5,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，無法提供正確的答案，且完全沒有 Context 支持。",
+      "request_latency_seconds": 1.7862,
+      "performance": {
+        "total_latency_seconds": 1.757242,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1376,
+        "completion_tokens": 12,
+        "total_tokens": 1388
+      }
+    },
+    {
+      "id": 34,
+      "quetsion": "台灣化學纖維的合併權益變動表中，在2023年第1季的本期其他綜合損益之權益總額是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "14,720,405仟元",
+      "source_file": "632.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "632.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "211.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供的資訊",
+      "request_latency_seconds": 1.5784,
+      "performance": {
+        "total_latency_seconds": 1.553761,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1261,
+        "completion_tokens": 12,
+        "total_tokens": 1273
+      }
+    },
+    {
+      "id": 35,
+      "quetsion": "聯華電子在2023年第3季合併財務報告附註中提到，公司及子公司截至一一二年九月三十日止，已開立但未使用信用狀的金額約是多少億元？",
+      "category": "finance",
+      "ground_truth": "6億元",
+      "source_file": "256.pdf",
+      "generated_answer": "截至民國一一二年九月三十日止，聯華電子及子公司已開立但未使用信用狀的金額約為6億元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "256.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "166.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "162.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 2.6969,
+      "performance": {
+        "total_latency_seconds": 2.670712,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1451,
+        "completion_tokens": 34,
+        "total_tokens": 1485
+      }
+    },
+    {
+      "id": 36,
+      "quetsion": "中鋼在2022年第3季的合併權益變動表中，2022年至第三季的綜合損益總額的權益合計是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "28,193,526仟元",
+      "source_file": "372.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "372.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "211.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 0.5,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，無法找到 Context 中相關的數據，答案完全不符合問題的要求。",
+      "request_latency_seconds": 1.5674,
+      "performance": {
+        "total_latency_seconds": 1.541713,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1254,
+        "completion_tokens": 12,
+        "total_tokens": 1266
+      }
+    },
+    {
+      "id": 37,
+      "quetsion": "聯發科在2022年第3季合併資產負債表中，民國一一一年九月三十日的現金及約當現金金額是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "141,568,596仟元",
+      "source_file": "591.pdf",
+      "generated_answer": "聯發科技股份有限公司在民國一一一年九月三十日的現金及約當現金金額為141,568,596新台幣仟元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "591.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "793.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "671.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 3.1619,
+      "performance": {
+        "total_latency_seconds": 3.13412,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1537,
+        "completion_tokens": 42,
+        "total_tokens": 1579
+      }
+    },
+    {
+      "id": 38,
+      "quetsion": "聯華電子合併綜合損益表在2023年第1季的其他綜合損益(淨額)是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "3,325,087仟元",
+      "source_file": "162.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "211.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "162.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "710.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 0.5,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，無法找到任何與問題相關的答案。",
+      "request_latency_seconds": 2.0922,
+      "performance": {
+        "total_latency_seconds": 2.066644,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1535,
+        "completion_tokens": 12,
+        "total_tokens": 1547
+      }
+    },
+    {
+      "id": 39,
+      "quetsion": "光寶科技股份有限公司的會計師核閱報告中，部分非重要子公司未經會計師核閱的2023年第1季負債總額占合併負債總額的百分比是多少？",
+      "category": "finance",
+      "ground_truth": "11.48%",
+      "source_file": "918.pdf",
+      "generated_answer": "光寶科技股份有限公司的會計師核閱報告中，部分非重要子公司未經會計師核閱的2023年第1季負債總額占合併負債總額的百分比為12.98%。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "918.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 4,
+      "faithfulness": 2,
+      "judge_reason": "答案正確，但缺少非核心的修飾詞，部分資訊未在 Context 中找到直接證據。",
+      "request_latency_seconds": 3.4484,
+      "performance": {
+        "total_latency_seconds": 3.418133,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1436,
+        "completion_tokens": 56,
+        "total_tokens": 1492
+      }
+    },
+    {
+      "id": 40,
+      "quetsion": "長榮海運於2022年第3季的合併權益變動表中，民國111年度之現金減資之權益總額為多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "31,746,301仟元",
+      "source_file": "351.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "351.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "918.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供任何依據。",
+      "request_latency_seconds": 1.5743,
+      "performance": {
+        "total_latency_seconds": 1.548572,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1220,
+        "completion_tokens": 12,
+        "total_tokens": 1232
+      }
+    },
+    {
+      "id": 41,
+      "quetsion": "亞德客-KY公司在2022年第3季的攤銷費用是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "12,897仟元",
+      "source_file": "612.pdf",
+      "generated_answer": "亞德客-KY公司在2022年第3季的攤銷費用是12,897新台幣仟元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "612.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "918.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "211.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 2.3735,
+      "performance": {
+        "total_latency_seconds": 2.348272,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1295,
+        "completion_tokens": 32,
+        "total_tokens": 1327
+      }
+    },
+    {
+      "id": 42,
+      "quetsion": "2022年第3季，聯華電子及子公司因營運所需而簽訂工程合約總價款約為多少億元？",
+      "category": "finance",
+      "ground_truth": "445億元",
+      "source_file": "166.pdf",
+      "generated_answer": "截至民國一一二年九月三十日止，聯華電子及子公司因營運所需而簽訂之工程合約總價款約為789億元。根据提供的资料，这对应于2022年第3季的数据。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "166.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "256.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "162.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 中的數據完全錯誤，與 Ground Truth 完全矛盾。",
+      "request_latency_seconds": 3.4385,
+      "performance": {
+        "total_latency_seconds": 3.412953,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1432,
+        "completion_tokens": 55,
+        "total_tokens": 1487
+      }
+    },
+    {
+      "id": 43,
+      "quetsion": "和泰汽車在合併綜合損益表中，2023年第一季度的避險工具之損益是多少仟元？",
+      "category": "finance",
+      "ground_truth": "128,097仟元",
+      "source_file": "710.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。.Context 1 提供了部分其他綜合損益的資訊，但並未詳細列出避險工具之損益。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "710.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "710.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "372.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供的資訊進行回答。",
+      "request_latency_seconds": 2.9872,
+      "performance": {
+        "total_latency_seconds": 2.962761,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1506,
+        "completion_tokens": 38,
+        "total_tokens": 1544
+      }
+    },
+    {
+      "id": 44,
+      "quetsion": "中華電信股份有限公司於2023年第3季的合併資產負債表中，民國111年12月31日的投資型不動產金額為多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "9,803,861仟元",
+      "source_file": "793.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。 Context 中提供的資料並未包含中華電信股份有限公司於2023年第3季的合併資產負債表中，民國111年12月31日的投資型不動產金額。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "793.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "671.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "671.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且完全沒有 Context 支持。",
+      "request_latency_seconds": 4.0153,
+      "performance": {
+        "total_latency_seconds": 3.981863,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1543,
+        "completion_tokens": 65,
+        "total_tokens": 1608
+      }
+    },
+    {
+      "id": 45,
+      "quetsion": "聯華電子在2023年第3季的合併權益變動表中，2023年一月一日的餘額中綜合損益總額的未分配盈餘是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "47,794,836仟元",
+      "source_file": "209.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "209.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "162.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "235.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且完全沒有 Context 支持。",
+      "request_latency_seconds": 1.8957,
+      "performance": {
+        "total_latency_seconds": 1.869577,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1413,
+        "completion_tokens": 12,
+        "total_tokens": 1425
+      }
+    },
+    {
+      "id": 46,
+      "quetsion": "台灣化學纖維的合併權益變動表中，在2023年第1季的對子公司所有權權益變動之非控制權益是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "3,351仟元",
+      "source_file": "632.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "632.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "891.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "235.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "答案完全錯誤，無法提供正確的數據，且完全沒有根據 Context 提供任何依據。",
+      "request_latency_seconds": 1.4939,
+      "performance": {
+        "total_latency_seconds": 1.467838,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1176,
+        "completion_tokens": 12,
+        "total_tokens": 1188
+      }
+    },
+    {
+      "id": 47,
+      "quetsion": "聯華電子在2023年第3季合併財務報告附註中提到，公司及子公司截至一一二年九月三十日止，簽訂技術授權及智權開發合約之總價款尚未認列的金額約是多少億元？",
+      "category": "finance",
+      "ground_truth": "13億元",
+      "source_file": "256.pdf",
+      "generated_answer": "截至民國一一二年九月三十日止，聯華電子及子公司簽訂技術授權及智權開發合約之總價款尚未認列的金額約為13億元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "256.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "166.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "162.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 5,
+      "faithfulness": 5,
+      "judge_reason": "答案完全正確，與Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
+      "request_latency_seconds": 3.1036,
+      "performance": {
+        "total_latency_seconds": 3.074837,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1460,
+        "completion_tokens": 44,
+        "total_tokens": 1504
+      }
+    },
+    {
+      "id": 48,
+      "quetsion": "國巨股份有限公司在2022年第3季的合併財務報表附註中，提及本次與奇力新公司合併後，將會於何時發行多少新股？",
+      "category": "finance",
+      "ground_truth": "於111年1月發行47,779仟股",
+      "source_file": "891.pdf",
+      "generated_answer": "國巨股份有限公司在與奇力新公司合併後，於2023年1月發行47,779仟股完成股份轉換。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "891.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "891.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "918.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 中的時間與股數完全錯誤，與 Ground Truth 完全矛盾。",
+      "request_latency_seconds": 2.7842,
+      "performance": {
+        "total_latency_seconds": 2.757077,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1392,
+        "completion_tokens": 39,
+        "total_tokens": 1431
+      }
+    },
+    {
+      "id": 49,
+      "quetsion": "聯發科在2022年第3季合併資產負債表中，民國一一一年九月三十日的資產總計是多少新台幣仟元？",
+      "category": "finance",
+      "ground_truth": "639,893,975仟元",
+      "source_file": "591.pdf",
+      "generated_answer": "目前資料庫內的文件不足以回答此問題。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "591.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "793.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "671.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 0,
+      "faithfulness": 0,
+      "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且完全沒有 Context 支持。",
+      "request_latency_seconds": 2.0863,
+      "performance": {
+        "total_latency_seconds": 2.049785,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1517,
+        "completion_tokens": 12,
+        "total_tokens": 1529
+      }
+    },
+    {
+      "id": 50,
+      "quetsion": "國巨股份有限公司在2022年第3季的合併財務報表附註中提及，在民國110年以前曾透過現金交割的方式取得某些公司的股權，取得股權時付出的美金總額為多少？",
+      "category": "finance",
+      "ground_truth": "2,357,513仟元",
+      "source_file": "891.pdf",
+      "generated_answer": "國巨股份有限公司在民國110年以前透過現金交割的方式取得的股權時付出的美金總額為721,461仟元。",
+      "retrieved_sources": [
+        {
+          "frontend_index": 1,
+          "file_name": "891.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 2,
+          "file_name": "256.pdf",
+          "category": "finance"
+        },
+        {
+          "frontend_index": 3,
+          "file_name": "166.pdf",
+          "category": "finance"
+        }
+      ],
+      "reciprocal_rank": 1.0,
+      "hit_at_3": true,
+      "answer_correctness": 2,
+      "faithfulness": 0,
+      "judge_reason": "答案部分正確，但取得股權時付出的美金總額為721,461仟元與Ground Truth的2,357,513仟元不符。 Generated Answer中提到的民國110年以前取得股權的資訊在Context中找不到直接證據。",
+      "request_latency_seconds": 2.5872,
+      "performance": {
+        "total_latency_seconds": 2.560392,
+        "ttft_seconds": null,
+        "tpot_seconds": null
+      },
+      "token_usage": {
+        "prompt_tokens": 1396,
+        "completion_tokens": 41,
+        "total_tokens": 1437
+      }
+    }
+  ]
+}
