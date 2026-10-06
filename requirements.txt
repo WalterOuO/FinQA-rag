@@ -20,13 +20,18 @@ pdfplumber==0.11.7
 Pillow==11.3.0
 
 # ------------------------------------------------------------
-# Chroma / LangChain
+# LangChain
 # ------------------------------------------------------------
-chromadb==1.5.9
 langchain-core==1.6.3
 langchain-text-splitters==1.1.2
 langchain-huggingface==1.2.2
-langchain-chroma==1.1.0
+langchain-qdrant==1.1.0
+
+# ------------------------------------------------------------
+# Qdrant / Hybrid Search
+# ------------------------------------------------------------
+qdrant-client==1.19.1
+fastembed==0.8.1
 
 # ------------------------------------------------------------
 # Embedding / Reranker

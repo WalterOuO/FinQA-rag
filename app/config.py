@@ -41,9 +41,8 @@ class Settings(BaseSettings):
     MARKDOWN_STORE_DIR: Path = PROJECT_ROOT / "storage" / "markdown_store"
     PARENT_CHUNKS_DIR: Path = PROJECT_ROOT / "storage" / "parent_chunks"
     
-    # 針對 Colab 測試用的本地 ChromaDB 路徑，部署到 Docker時 ChromaDB會變成 docker container
-    # 本機部署 Docker時，可以 comment掉
-    LOCAL_CHROMA_DB_DIR: Path = PROJECT_ROOT / "storage" / "child_vector_db"
+    # 針對 Colab 測試用的本地 Qdrant 路徑
+    LOCAL_QDRANT_DB_DIR: Path = PROJECT_ROOT / "storage" / "child_vector_db"
 
     # 7. microservice連線端點
     REDIS_URL: str = "redis://localhost:6379/0"

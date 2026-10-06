@@ -1,4 +1,5 @@
 import json
+import argparse
 from pathlib import Path
 from langchain_openai import ChatOpenAI
 from evaluate_utils import calculate_reciprocal_rank, calculate_hit_at_k, parse_judge_response
@@ -10,8 +11,6 @@ from evaluate_utils import calculate_reciprocal_rank, calculate_hit_at_k, parse_
 BASE_DIR = Path("/content/drive/MyDrive/FinQA-rag")
 EVALUATION_DIR = BASE_DIR / "evaluation"
 
-INPUT_FILE = EVALUATION_DIR / "evaluation_answers.json"
-OUTPUT_FILE = EVALUATION_DIR / "evaluation_results.json"
 PROMPT_FILE = EVALUATION_DIR / "judge_prompt.txt"
 
 VLLM_URL = "http://127.0.0.1:8000"
@@ -54,7 +53,19 @@ def judge_answer(
 # ============================================================
 
 def main():
-  with open(INPUT_FILE, "r", encoding="utf-8") as f:
+  parser = argparse.ArgumentParser()
+  parser.add_argument(
+    "--experiment",
+    required=True,
+    choices=["E0", "E1", "E2", "E3"]
+  )
+  args = parser.parse_args()
+
+
+  input_file = (EVALUATION_DIR / "evaluation_answers"
+  / f"{args.experiment}_answers.json")
+
+  with open(input_file, "r", encoding="utf-8") as f:
     evaluation_answers = json.load(f)
 
   prompt_template = load_judge_prompt()
@@ -249,18 +260,22 @@ def main():
   # Save
   # ==========================================================
 
-  OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+  output_file = (EVALUATION_DIR / "evaluation_results"
+    / f"{args.experiment}_results.json")
 
-  with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+  output_file.parent.mkdir(parents=True, exist_ok=True)
+
+  with open(output_file, "w", encoding="utf-8") as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
 
   print()
   print("=" * 80)
   print("EVALUATION COMPLETED")
   print("=" * 80)
+  print(f"Experiment : {args.experiment}")
   print(json.dumps(summary, ensure_ascii=False, indent=2))
   print()
-  print(f"Results saved to: {OUTPUT_FILE}")
+  print(f"Results saved to: {output_file}")
 
 
 if __name__ == "__main__":

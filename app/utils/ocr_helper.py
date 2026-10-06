@@ -5,7 +5,6 @@ from paddleocr import PaddleOCR
 
 logger = logging.getLogger(__name__)
 
-
 class OCRHelper:
     def __init__(self):
       self.ocr_engine = None

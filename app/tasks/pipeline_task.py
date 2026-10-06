@@ -67,31 +67,31 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
           page_num = page.page_number
           markdown_content.append(f"\n<!-- PAGE_START_{page_num} -->\n")
           
-          # Text
-          text = page.extract_text()
-          if text:
-            markdown_content.append("\n<!-- TEXT_START -->\n")
-            markdown_content.append(text)
-            markdown_content.append("\n<!-- TEXT_END -->\n")
+          # # Text
+          # text = page.extract_text()
+          # if text:
+          #   markdown_content.append("\n<!-- TEXT_START -->\n")
+          #   markdown_content.append(text)
+          #   markdown_content.append("\n<!-- TEXT_END -->\n")
           
-          # Table
-          tables = page.extract_tables()
-          for table in tables:
-            if not table:
-              continue
+          # # Table
+          # tables = page.extract_tables()
+          # for table in tables:
+          #   if not table:
+          #     continue
 
-            markdown_content.append("\n<!-- TABLE_START -->\n")
+          #   markdown_content.append("\n<!-- TABLE_START -->\n")
             
-            for row in table:
-              if row:
-                # 把表格row內每一格整理成文字
-                row_text = " | ".join(
-                  str(cell or "").replace("\n", "").strip()
-                  for cell in row
-                )
-                markdown_content.append(row_text + "\n")
+          #   for row in table:
+          #     if row:
+          #       # 把表格row內每一格整理成文字
+          #       row_text = " | ".join(
+          #         str(cell or "").replace("\n", "").strip()
+          #         for cell in row
+          #       )
+          #       markdown_content.append(row_text + "\n")
 
-            markdown_content.append("\n<!-- TABLE_END -->\n")
+          #   markdown_content.append("\n<!-- TABLE_END -->\n")
 
           markdown_content.append(f"\n<!-- PAGE_END_{page_num} -->\n")
                 

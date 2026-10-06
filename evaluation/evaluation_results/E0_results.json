@@ -5,8 +5,13 @@
     "Hit@3": 0.88,
     "average_answer_correctness": 2.1,
     "average_faithfulness": 1.64,
-    "average_request_latency_seconds": 2.8659,
-    "average_inference_latency_seconds": 2.8068
+    "average_request_latency_seconds": 3.1883,
+    "average_inference_latency_seconds": 3.1077,
+    "average_token_usage": {
+      "prompt_tokens": 1367.56,
+      "completion_tokens": 43.94,
+      "total_tokens": 1411.5
+    }
   },
   "results": [
     {
@@ -38,9 +43,9 @@
       "answer_correctness": 4,
       "faithfulness": 4,
       "judge_reason": "答案正確，但表達方式稍嫌冗長，缺少非核心的修飾詞，但不影響主要結論。文本忠實度良好，但有少量無關緊要的語氣連接詞，未引入任何新實體、新數據或新概念。",
-      "request_latency_seconds": 4.3572,
+      "request_latency_seconds": 7.1441,
       "performance": {
-        "total_latency_seconds": 3.041709,
+        "total_latency_seconds": 4.859201,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -79,9 +84,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，與 Ground Truth 完全矛盾。",
-      "request_latency_seconds": 2.4054,
+      "request_latency_seconds": 3.1278,
       "performance": {
-        "total_latency_seconds": 2.368962,
+        "total_latency_seconds": 3.091735,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -120,9 +125,9 @@
       "answer_correctness": 2,
       "faithfulness": 0,
       "judge_reason": " Generated Answer 中提到的「學歷證明文件影本」與 Ground Truth 中的「學歷證明文件電子檔」不符，且 Generated Answer 中缺少了「身分證正反面電子檔」的資訊。",
-      "request_latency_seconds": 2.3623,
+      "request_latency_seconds": 3.0745,
       "performance": {
-        "total_latency_seconds": 2.328152,
+        "total_latency_seconds": 3.041804,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -161,9 +166,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 2.3283,
+      "request_latency_seconds": 3.177,
       "performance": {
-        "total_latency_seconds": 2.295598,
+        "total_latency_seconds": 3.143745,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -202,9 +207,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 2.2706,
+      "request_latency_seconds": 3.1993,
       "performance": {
-        "total_latency_seconds": 2.237098,
+        "total_latency_seconds": 3.167041,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -243,9 +248,9 @@
       "answer_correctness": 2,
       "faithfulness": 0,
       "judge_reason": " Generated Answer 中提到的「需用機關應於召集計畫經內政部核定後一個月內確定召集日期及各項時程」與 Context 中的內容不符，錯誤地延遲了申請時間。另外， Generated Answer 中提到的「需用機關應在接到內政部實施召集命令后的一个月内确定召集日期及相关事项」也與 Context 中的內容不符。",
-      "request_latency_seconds": 4.1359,
+      "request_latency_seconds": 5.6241,
       "performance": {
-        "total_latency_seconds": 4.102932,
+        "total_latency_seconds": 5.590195,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -284,9 +289,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 4.99,
+      "request_latency_seconds": 6.3719,
       "performance": {
-        "total_latency_seconds": 4.947346,
+        "total_latency_seconds": 6.321507,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -325,9 +330,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 2.2527,
+      "request_latency_seconds": 2.7587,
       "performance": {
-        "total_latency_seconds": 2.222412,
+        "total_latency_seconds": 2.727428,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -366,9 +371,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 的答案正確性與文本忠實度均為 0 分，因為答案內容與 Ground Truth 完全不符，且 Generated Answer 中的資訊並未在 Context 中找到直接證據。",
-      "request_latency_seconds": 11.5502,
+      "request_latency_seconds": 13.6273,
       "performance": {
-        "total_latency_seconds": 11.517833,
+        "total_latency_seconds": 13.59668,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -407,9 +412,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 3.7942,
+      "request_latency_seconds": 4.4325,
       "performance": {
-        "total_latency_seconds": 3.761802,
+        "total_latency_seconds": 4.400423,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -448,9 +453,9 @@
       "answer_correctness": 4,
       "faithfulness": 2,
       "judge_reason": "答案正確，但表達方式稍嫌冗長，缺少非核心的修飾詞，但不影響主要結論。答案中包含了 Context 沒有提到的額外資訊，新創事業的設立年數需在2年以上未滿5年之間，與 Context 中的規定一致，但 Context 中並未明確提及此限制。",
-      "request_latency_seconds": 2.1703,
+      "request_latency_seconds": 2.4666,
       "performance": {
-        "total_latency_seconds": 2.136505,
+        "total_latency_seconds": 2.424826,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -489,9 +494,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 中的答案正確性與文本忠實度均為 0 分，因為答案完全錯誤，與 Ground Truth 完全矛盾。",
-      "request_latency_seconds": 2.28,
+      "request_latency_seconds": 2.5282,
       "performance": {
-        "total_latency_seconds": 2.246997,
+        "total_latency_seconds": 2.49924,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -530,9 +535,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 3.1396,
+      "request_latency_seconds": 3.4567,
       "performance": {
-        "total_latency_seconds": 3.101897,
+        "total_latency_seconds": 3.426561,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -571,9 +576,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 4.1035,
+      "request_latency_seconds": 4.1196,
       "performance": {
-        "total_latency_seconds": 4.071466,
+        "total_latency_seconds": 4.09095,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -612,9 +617,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，與 Ground Truth 完全矛盾。",
-      "request_latency_seconds": 1.4508,
+      "request_latency_seconds": 1.6123,
       "performance": {
-        "total_latency_seconds": 1.420208,
+        "total_latency_seconds": 1.572504,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -653,9 +658,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供的資訊",
-      "request_latency_seconds": 1.1682,
+      "request_latency_seconds": 1.3071,
       "performance": {
-        "total_latency_seconds": 1.135958,
+        "total_latency_seconds": 1.263783,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -694,9 +699,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且答案內容與 Context 完全無關。",
-      "request_latency_seconds": 2.2811,
+      "request_latency_seconds": 2.5509,
       "performance": {
-        "total_latency_seconds": 2.244186,
+        "total_latency_seconds": 2.511162,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -735,9 +740,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且答案內容與 Context 完全無關。",
-      "request_latency_seconds": 3.4791,
+      "request_latency_seconds": 3.9452,
       "performance": {
-        "total_latency_seconds": 3.437901,
+        "total_latency_seconds": 3.911358,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -776,9 +781,9 @@
       "answer_correctness": 5,
       "faithfulness": 0,
       "judge_reason": "答案完全正確，但無法在提供的 Context 中找到直接證據。",
-      "request_latency_seconds": 2.6492,
+      "request_latency_seconds": 2.9917,
       "performance": {
-        "total_latency_seconds": 2.609227,
+        "total_latency_seconds": 2.960492,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -817,9 +822,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有 Context 支持。",
-      "request_latency_seconds": 1.4268,
+      "request_latency_seconds": 1.6217,
       "performance": {
-        "total_latency_seconds": 1.399278,
+        "total_latency_seconds": 1.589075,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -858,9 +863,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，無法找到 Context 中相關資訊，且答案方向嚴重偏離。",
-      "request_latency_seconds": 1.9976,
+      "request_latency_seconds": 2.2112,
       "performance": {
-        "total_latency_seconds": 1.968729,
+        "total_latency_seconds": 2.158491,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -899,9 +904,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 2.1859,
+      "request_latency_seconds": 2.5163,
       "performance": {
-        "total_latency_seconds": 2.154911,
+        "total_latency_seconds": 2.478583,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -940,9 +945,9 @@
       "answer_correctness": 4,
       "faithfulness": 2,
       "judge_reason": "答案正確，但缺少了第 11 條的內容，且引入了 Context 2 中的內容。",
-      "request_latency_seconds": 5.855,
+      "request_latency_seconds": 6.7602,
       "performance": {
-        "total_latency_seconds": 5.691222,
+        "total_latency_seconds": 6.627453,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -981,9 +986,9 @@
       "answer_correctness": 4,
       "faithfulness": 3,
       "judge_reason": "答案基本正確，但缺少非核心的修飾詞，且部分資訊在 Context 中找不到直接證據。",
-      "request_latency_seconds": 2.1006,
+      "request_latency_seconds": 2.4265,
       "performance": {
-        "total_latency_seconds": 2.068583,
+        "total_latency_seconds": 2.396251,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1022,9 +1027,9 @@
       "answer_correctness": 4,
       "faithfulness": 2,
       "judge_reason": "答案基本正確，但存在次要資訊缺漏，且部分資訊為 Context 沒有提到的額外資訊。",
-      "request_latency_seconds": 3.8697,
+      "request_latency_seconds": 4.5193,
       "performance": {
-        "total_latency_seconds": 3.833302,
+        "total_latency_seconds": 4.480869,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1063,9 +1068,9 @@
       "answer_correctness": 1,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，與 Ground Truth 完全矛盾。",
-      "request_latency_seconds": 2.5842,
+      "request_latency_seconds": 3.104,
       "performance": {
-        "total_latency_seconds": 2.553909,
+        "total_latency_seconds": 3.069764,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1104,9 +1109,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 3.4264,
+      "request_latency_seconds": 4.1269,
       "performance": {
-        "total_latency_seconds": 3.395046,
+        "total_latency_seconds": 4.093204,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1145,9 +1150,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有 Context 支持。",
-      "request_latency_seconds": 1.5596,
+      "request_latency_seconds": 1.8668,
       "performance": {
-        "total_latency_seconds": 1.530888,
+        "total_latency_seconds": 1.7709,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1186,9 +1191,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，無法提供正確的答案，且完全沒有 Context 支持。",
-      "request_latency_seconds": 2.1003,
+      "request_latency_seconds": 2.3918,
       "performance": {
-        "total_latency_seconds": 2.073989,
+        "total_latency_seconds": 2.357232,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1227,9 +1232,9 @@
       "answer_correctness": 4,
       "faithfulness": 2,
       "judge_reason": "答案正確，但表達方式略嫌冗長，且提到了不相關的日期。",
-      "request_latency_seconds": 2.5068,
+      "request_latency_seconds": 2.9381,
       "performance": {
-        "total_latency_seconds": 2.47818,
+        "total_latency_seconds": 2.904107,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1268,9 +1273,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法從 Context 中找到相關資訊，且 Generated Answer 表示資料庫內的文件不足以回答此問題。",
-      "request_latency_seconds": 2.0194,
+      "request_latency_seconds": 2.2809,
       "performance": {
-        "total_latency_seconds": 1.993972,
+        "total_latency_seconds": 2.255445,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1309,9 +1314,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 中的數據與 Context 1 中的數據不符，且答案方向嚴重偏離。",
-      "request_latency_seconds": 3.8234,
+      "request_latency_seconds": 4.4223,
       "performance": {
-        "total_latency_seconds": 3.795493,
+        "total_latency_seconds": 4.395813,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1350,9 +1355,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，無法提供正確的答案，且完全沒有 Context 支持。",
-      "request_latency_seconds": 1.7862,
+      "request_latency_seconds": 1.555,
       "performance": {
-        "total_latency_seconds": 1.757242,
+        "total_latency_seconds": 1.525628,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1391,9 +1396,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供的資訊",
-      "request_latency_seconds": 1.5784,
+      "request_latency_seconds": 1.802,
       "performance": {
-        "total_latency_seconds": 1.553761,
+        "total_latency_seconds": 1.773377,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1432,9 +1437,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 2.6969,
+      "request_latency_seconds": 3.0709,
       "performance": {
-        "total_latency_seconds": 2.670712,
+        "total_latency_seconds": 3.044218,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1473,9 +1478,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，無法找到 Context 中相關的數據，答案完全不符合問題的要求。",
-      "request_latency_seconds": 1.5674,
+      "request_latency_seconds": 1.7567,
       "performance": {
-        "total_latency_seconds": 1.541713,
+        "total_latency_seconds": 1.730078,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1514,9 +1519,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 3.1619,
+      "request_latency_seconds": 3.5162,
       "performance": {
-        "total_latency_seconds": 3.13412,
+        "total_latency_seconds": 3.490343,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1555,9 +1560,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，無法找到任何與問題相關的答案。",
-      "request_latency_seconds": 2.0922,
+      "request_latency_seconds": 2.2891,
       "performance": {
-        "total_latency_seconds": 2.066644,
+        "total_latency_seconds": 2.264903,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1596,9 +1601,9 @@
       "answer_correctness": 4,
       "faithfulness": 2,
       "judge_reason": "答案正確，但缺少非核心的修飾詞，部分資訊未在 Context 中找到直接證據。",
-      "request_latency_seconds": 3.4484,
+      "request_latency_seconds": 3.4163,
       "performance": {
-        "total_latency_seconds": 3.418133,
+        "total_latency_seconds": 3.383654,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1637,9 +1642,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供任何依據。",
-      "request_latency_seconds": 1.5743,
+      "request_latency_seconds": 1.3036,
       "performance": {
-        "total_latency_seconds": 1.548572,
+        "total_latency_seconds": 1.277394,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1678,9 +1683,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與 Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 2.3735,
+      "request_latency_seconds": 2.1958,
       "performance": {
-        "total_latency_seconds": 2.348272,
+        "total_latency_seconds": 2.169618,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1719,9 +1724,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 中的數據完全錯誤，與 Ground Truth 完全矛盾。",
-      "request_latency_seconds": 3.4385,
+      "request_latency_seconds": 2.9904,
       "performance": {
-        "total_latency_seconds": 3.412953,
+        "total_latency_seconds": 2.957534,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1760,9 +1765,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法正確回答問題，且完全沒有根據 Context 提供的資訊進行回答。",
-      "request_latency_seconds": 2.9872,
+      "request_latency_seconds": 1.7391,
       "performance": {
-        "total_latency_seconds": 2.962761,
+        "total_latency_seconds": 1.712676,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1801,9 +1806,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且完全沒有 Context 支持。",
-      "request_latency_seconds": 4.0153,
+      "request_latency_seconds": 2.8511,
       "performance": {
-        "total_latency_seconds": 3.981863,
+        "total_latency_seconds": 2.823725,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1842,9 +1847,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且完全沒有 Context 支持。",
-      "request_latency_seconds": 1.8957,
+      "request_latency_seconds": 2.0636,
       "performance": {
-        "total_latency_seconds": 1.869577,
+        "total_latency_seconds": 2.032794,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1883,9 +1888,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "答案完全錯誤，無法提供正確的數據，且完全沒有根據 Context 提供任何依據。",
-      "request_latency_seconds": 1.4939,
+      "request_latency_seconds": 1.2351,
       "performance": {
-        "total_latency_seconds": 1.467838,
+        "total_latency_seconds": 1.208469,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1924,9 +1929,9 @@
       "answer_correctness": 5,
       "faithfulness": 5,
       "judge_reason": "答案完全正確，與Ground Truth 核心語意完全一致，無任何缺失，專有名詞與數據完全精確。",
-      "request_latency_seconds": 3.1036,
+      "request_latency_seconds": 1.9814,
       "performance": {
-        "total_latency_seconds": 3.074837,
+        "total_latency_seconds": 1.952875,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -1965,9 +1970,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 中的時間與股數完全錯誤，與 Ground Truth 完全矛盾。",
-      "request_latency_seconds": 2.7842,
+      "request_latency_seconds": 3.077,
       "performance": {
-        "total_latency_seconds": 2.757077,
+        "total_latency_seconds": 3.046728,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -2006,9 +2011,9 @@
       "answer_correctness": 0,
       "faithfulness": 0,
       "judge_reason": "Generated Answer 完全錯誤，未能正確回答問題，且完全沒有 Context 支持。",
-      "request_latency_seconds": 2.0863,
+      "request_latency_seconds": 1.0696,
       "performance": {
-        "total_latency_seconds": 2.049785,
+        "total_latency_seconds": 1.036895,
         "ttft_seconds": null,
         "tpot_seconds": null
       },
@@ -2047,9 +2052,9 @@
       "answer_correctness": 2,
       "faithfulness": 0,
       "judge_reason": "答案部分正確，但取得股權時付出的美金總額為721,461仟元與Ground Truth的2,357,513仟元不符。 Generated Answer中提到的民國110年以前取得股權的資訊在Context中找不到直接證據。",
-      "request_latency_seconds": 2.5872,
+      "request_latency_seconds": 2.8014,
       "performance": {
-        "total_latency_seconds": 2.560392,
+        "total_latency_seconds": 2.7741,
         "ttft_seconds": null,
         "tpot_seconds": null
       },

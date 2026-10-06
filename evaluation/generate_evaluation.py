@@ -1,15 +1,26 @@
 import json
 import time
 import requests
+import argparse
 from pathlib import Path
 
 API_URL = "http://127.0.0.1:8001/query"
 
 DATASET_FILE = Path("evaluation/evaluation_dataset.json")
-OUTPUT_FILE = Path("evaluation/evaluation_answers.json")
 
 
 def main():
+  parser = argparse.ArgumentParser()
+  parser.add_argument(
+    "--experiment",
+    required=True,
+    choices=["E0", "E1", "E2", "E3"]
+  )
+  args = parser.parse_args()
+  
+  output_file = Path(f"evaluation/evaluation_answers/{args.experiment}_answers.json")
+
+
   with open(DATASET_FILE, "r", encoding="utf-8") as f:
     evaluation_dataset = json.load(f)
 
@@ -129,16 +140,17 @@ def main():
     print(f"Total Tokens   : {total_tokens}")
     print(f"Answer       : {generated_answer}")
 
-  OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+  output_file.parent.mkdir(parents=True, exist_ok=True)
 
-  with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+  with open(output_file, "w", encoding="utf-8") as f:
     json.dump(results, f, ensure_ascii=False, indent=2)
 
   print("\n" + "=" * 80)
   print("RAG GENERATION COMPLETED")
   print("=" * 80)
+  print(f"Experiment      : {args.experiment}")
   print(f"Total Questions : {len(results)}")
-  print(f"Output          : {OUTPUT_FILE}")
+  print(f"Output          : {output_file}")
 
 
 if __name__ == "__main__":
