@@ -69,13 +69,19 @@ def main():
   )
 
   results = []
-
+  # Retrieval metrics
   reciprocal_ranks = []
   hit_results = []
+  # LLM generation metrics
   answer_correctness_scores = []
   faithfulness_scores = []
+  # Latency metrics
   request_latencies = []
   inference_latencies = []
+  # Token usage metrics
+  prompt_tokens_list = []
+  completion_tokens_list = []
+  total_tokens_list = []
 
   print("=" * 80)
   print("Starting Evaluation with existing Judge vLLM...")
@@ -114,6 +120,10 @@ def main():
 
     if not token_usage:
       raise ValueError(f"Question {question_id}: missing 'token_usage'.")
+    
+    prompt_tokens = token_usage["prompt_tokens"]
+    completion_tokens = token_usage["completion_tokens"]
+    total_tokens = token_usage["total_tokens"]
 
     # ========================================================
     # Retrieval
@@ -150,6 +160,9 @@ def main():
     faithfulness_scores.append(faithfulness)
     request_latencies.append(request_latency)
     inference_latencies.append(inference_latency)
+    prompt_tokens_list.append(prompt_tokens)
+    completion_tokens_list.append(completion_tokens)
+    total_tokens_list.append(total_tokens)
 
     # ========================================================
     # Store Result
@@ -193,7 +206,9 @@ def main():
       f"Hit@{TOP_K}={hit_at_k} | "
       f"Correctness={answer_correctness}/5 | "
       f"Faithfulness={faithfulness}/5 | "
-      f"Latency={inference_latency:.4f}s"
+      f"Latency={inference_latency:.4f}s | "
+      f"Tokens={total_tokens} "
+      f"(prompt={prompt_tokens}, completion={completion_tokens})"
     )
 
   # ==========================================================
@@ -213,7 +228,16 @@ def main():
     "average_request_latency_seconds": round(
       sum(request_latencies) / len(request_latencies), 4) if request_latencies else None,
     "average_inference_latency_seconds": round(
-      sum(inference_latencies) / len(inference_latencies),4) if inference_latencies else None
+      sum(inference_latencies) / len(inference_latencies),4) if inference_latencies else None,
+    "average_token_usage": {
+      "prompt_tokens": round(
+        sum(prompt_tokens_list) / len(prompt_tokens_list), 2) if prompt_tokens_list else None,
+      "completion_tokens": round(
+        sum(completion_tokens_list) / len(completion_tokens_list),2) if completion_tokens_list else None,
+      "total_tokens": round(
+        sum(total_tokens_list) / len(total_tokens_list),2) if total_tokens_list else None
+      }
+    
     }
 
   output = {
