@@ -1,12 +1,35 @@
 import logging
 
-from config import settings
+from fastembed import SparseTextEmbedding
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore, RetrievalMode
-from langchain_qdrant.sparse_embeddings import FastEmbedSparse
-from qdrant_client import QdrantClient
+from langchain_qdrant.sparse_embeddings import SparseEmbeddings, SparseVector
+from qdrant_client import QdrantClient, models
+from config import settings
 
 logger = logging.getLogger(__name__)
+
+class FastEmbedBM25(SparseEmbeddings):
+  def __init__(self):
+    self.model = SparseTextEmbedding(
+      model_name="Qdrant/bm25"
+    )
+
+  def embed_documents(self, texts: list[str]) -> list[SparseVector]:
+    embeddings = self.model.embed(texts)
+    return [
+      SparseVector(
+        indices=embedding.indices.tolist(),
+        values=embedding.values.tolist()
+      ) for embedding in embeddings
+      ]
+
+  def embed_query(self, text: str) -> SparseVector:
+    embedding = next(self.model.embed([text]))
+    return SparseVector(
+      indices=embedding.indices.tolist(),
+      values=embedding.values.tolist()
+    )
 
 class VectorDBClient:
   def __init__(self):
@@ -18,21 +41,35 @@ class VectorDBClient:
       model_kwargs={"device": settings.RERANKER_DEVICE}
     )
 
-    # Sparse Vector：BM25
-    self.sparse_embeddings = FastEmbedSparse(
-      model_name="Qdrant/bm25"
-    )
+    self.sparse_embeddings = FastEmbedBM25()
 
     self._init_qdrant()
 
   def _init_qdrant(self):
-    self.client = QdrantClient(
-      path=str(settings.LOCAL_QDRANT_DB_DIR)
-    )
+    self.client = QdrantClient(path=str(settings.LOCAL_QDRANT_DB_DIR))
+    collection_name = "pdfqa_collection"
+
+    if not self.client.collection_exists(collection_name):
+      dense_dim = len(self.embeddings.embed_query("dimension check"))
+
+      self.client.create_collection(
+        collection_name=collection_name,
+        vectors_config={
+          "dense": models.VectorParams(
+            size=dense_dim,
+            distance=models.Distance.COSINE
+          )
+        },
+        sparse_vectors_config={
+          "sparse": models.SparseVectorParams()
+        }
+      )
+
+      logger.info(f"建立 Qdrant collection: {collection_name}")
 
     self.db = QdrantVectorStore(
       client=self.client,
-      collection_name="pdfqa_collection",
+      collection_name=collection_name,
       embedding=self.embeddings,
       sparse_embedding=self.sparse_embeddings,
       retrieval_mode=RetrievalMode.HYBRID,

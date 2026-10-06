@@ -46,9 +46,6 @@ class Settings(BaseSettings):
 
     # 7. microservice連線端點
     REDIS_URL: str = "redis://localhost:6379/0"
-    CHROMA_HOST: str = "localhost"       # 本地版docker會替換成chromadb
-    CHROMA_PORT: int = 8000
-    OLLAMA_URL: str = "http://localhost:11434" # 本地docker會換成ollama:11434
     VLLM_URL: str = "http://localhost:8000"
 
 
@@ -66,17 +63,25 @@ class Settings(BaseSettings):
     )
     
     def init_directories(self):
-      # 定義需要進行業務物理隔離的類別
       categories = ["military", "finance"]
 
-      """確保所有實體儲存目錄在上線前皆已自動建立"""
+      """確保所有實體儲存目錄在上線前皆已自動建立，並附帶 .gitkeep 以利 Git 追蹤"""
       for cat in categories:
-        (self.PDF_STORE_DIR / cat).mkdir(parents=True, exist_ok=True)
-        (self.MARKDOWN_STORE_DIR / cat).mkdir(parents=True, exist_ok=True)
-        (self.PARENT_CHUNKS_DIR / cat).mkdir(parents=True, exist_ok=True)
+        # 定義所有需要建立的子目錄路徑
+        sub_dirs = [
+          self.PDF_STORE_DIR / cat,
+          self.MARKDOWN_STORE_DIR / cat,
+          self.PARENT_CHUNKS_DIR / cat
+        ]
+        
+        # 批次建立目錄並產生 .gitkeep
+        for folder in sub_dirs:
+          folder.mkdir(parents=True, exist_ok=True)
+          (folder / ".gitkeep").touch(exist_ok=True)
 
-      if self.CHROMA_HOST in ["localhost", "127.0.0.1"] or "chromadb" not in self.CHROMA_HOST:
-        self.LOCAL_CHROMA_DB_DIR.mkdir(parents=True, exist_ok=True)
+      # 建立本地資料庫目錄與其 .gitkeep
+      self.LOCAL_QDRANT_DB_DIR.mkdir(parents=True, exist_ok=True)
+      (self.LOCAL_QDRANT_DB_DIR / ".gitkeep").touch(exist_ok=True)
 
 # 實例化全域唯一的 settings 物件
 settings = Settings()
