@@ -46,7 +46,7 @@ class VectorDBClient:
     self._init_qdrant()
 
   def _init_qdrant(self):
-    self.client = QdrantClient(path=str(settings.LOCAL_QDRANT_DB_DIR))
+    self.client = QdrantClient(url=settings.QDRANT_URL)
     collection_name = "pdfqa_collection"
 
     if not self.client.collection_exists(collection_name):

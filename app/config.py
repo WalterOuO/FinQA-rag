@@ -41,8 +41,14 @@ class Settings(BaseSettings):
     MARKDOWN_STORE_DIR: Path = PROJECT_ROOT / "storage" / "markdown_store"
     PARENT_CHUNKS_DIR: Path = PROJECT_ROOT / "storage" / "parent_chunks"
     
-    # 針對 Colab 測試用的本地 Qdrant 路徑
-    LOCAL_QDRANT_DB_DIR: Path = PROJECT_ROOT / "storage" / "child_vector_db"
+    # 在本地 Colab 運作 Qdrant 資料庫避免頻繁drive網路傳輸
+    # LOCAL_QDRANT_DB_DIR: Path = PROJECT_ROOT / "storage" / "child_vector_db"
+    QDRANT_URL: str = "http://127.0.0.1:6333"
+    LOCAL_QDRANT_DB_DIR: Path = Path("/content/qdrant_db")
+
+    # Google Drive：Qdrant 持久化備份
+    QDRANT_BACKUP_DIR: Path = PROJECT_ROOT / "storage" / "child_vector_db"
+    QDRANT_BACKUP_FILE: Path = QDRANT_BACKUP_DIR / "vector_db_backup.tar.gz"
 
     # 7. microservice連線端點
     REDIS_URL: str = "redis://localhost:6379/0"
@@ -81,7 +87,8 @@ class Settings(BaseSettings):
 
       # 建立本地資料庫目錄與其 .gitkeep
       self.LOCAL_QDRANT_DB_DIR.mkdir(parents=True, exist_ok=True)
-      (self.LOCAL_QDRANT_DB_DIR / ".gitkeep").touch(exist_ok=True)
+      self.QDRANT_BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+      (self.QDRANT_BACKUP_DIR / ".gitkeep").touch(exist_ok=True)
 
 # 實例化全域唯一的 settings 物件
 settings = Settings()
