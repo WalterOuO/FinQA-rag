@@ -84,7 +84,7 @@ class VectorDBClient:
 
     self.db.add_documents(documents)
 
-    logger.info(f"成功儲存 {len(documents)} child chunks 到 Qdrant 資料庫.")
+    logger.info(f"成功儲存 {len(documents)} chunks 到 Qdrant 資料庫.")
 
 
 vector_client = None

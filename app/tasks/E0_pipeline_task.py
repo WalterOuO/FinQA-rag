@@ -5,15 +5,16 @@ import logging
 from pathlib import Path
 import redis
 
-# 引入第三方套件與 LangChain 基礎物件
+# 引入核心第三方套件与 LangChain 基礎物件
+import pdfplumber
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-# 引入自訂之微服務功能
+# 引入自訂之微服務神經中樞與解耦組件
 from config import settings
 from celery_app import celery_app
 from db.vector_client import get_vector_client
-from utils.docling_helper import get_docling_parser
+# from utils.ocr_helper import ocr_helper
 
 logger = logging.getLogger(__name__)
 
@@ -53,8 +54,10 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
     3. Embedding: 存入 ChromaDB
     """
     logger.info(f"🚀 開始非同步處理文件 [{category}]: {file_name}")
+
+    # # ====== 0. 保存原始 PDF ======
     # self.update_state(state="PROCESSING", meta={"current_stage": "STORING_PDF"})
-    # # ====== 保存原始 PDF ======
+
     # pdf_store_path = settings.PDF_STORE_DIR / category / file_name
     # pdf_store_path.parent.mkdir(parents=True, exist_ok=True)
     # with open(pdf_path, "rb") as src, open(pdf_store_path, "wb") as dst:
@@ -62,16 +65,52 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
 
     # logger.info(f"✅ Ingestion Step 0. 原始 PDF 已保存至: {pdf_store_path}")
 
-    pdf_path = Path(file_path)
+    # ====== 1. PDF Parsing ======
     self.update_state(state="PROCESSING", meta={"current_stage": "DOCLING_&_OCR"})
-    # ====== 1. PDF Parsing: Docling + OCR ======
-    try:
-      docling_parser = get_docling_parser()
-      full_markdown = docling_parser.parse_pdf(pdf_path)
 
+    pdf_path = Path(file_path)
+    markdown_content = []
+
+    try:
+      with pdfplumber.open(pdf_path) as pdf:
+        for page in pdf.pages:
+          page_num = page.page_number
+          markdown_content.append(f"\n<!-- PAGE_START_{page_num} -->\n")
+          
+          # Text
+          text = page.extract_text()
+          if text:
+            markdown_content.append("\n<!-- TEXT_START -->\n")
+            markdown_content.append(text)
+            markdown_content.append("\n<!-- TEXT_END -->\n")
+          
+          # Table
+          tables = page.extract_tables()
+          for table in tables:
+            if not table:
+              continue
+
+            markdown_content.append("\n<!-- TABLE_START -->\n")
+            
+            for row in table:
+              if row:
+                # 把表格row內每一格整理成文字
+                row_text = " | ".join(
+                  str(cell or "").replace("\n", "").strip()
+                  for cell in row
+                )
+                markdown_content.append(row_text + "\n")
+
+            markdown_content.append("\n<!-- TABLE_END -->\n")
+
+          markdown_content.append(f"\n<!-- PAGE_END_{page_num} -->\n")
+                
     except Exception as e:
-      logger.error(f"❌ Docling PDF 解析出錯: {str(e)}")
+      logger.error(f"❌ PDF 解析出錯: {str(e)}")
       raise e
+            
+    # 將所有的 markdown 串成起來
+    full_markdown = "".join(markdown_content)
     
     # 將每個PDF的 Markdown 存入對應的業務子資料夾中 (Docker Bind Mount)
     md_file_path = settings.MARKDOWN_STORE_DIR / category / f"{pdf_path.stem}.md"
@@ -99,7 +138,6 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
         "page_content": c_doc.page_content,
         "metadata": c_metadata
       }
-
       child_documents.append(Document(page_content=c_doc, metadata=c_metadata))
 
     # 將 Chunk 存成 JSON 檔方便日後核對
@@ -108,17 +146,17 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
       json.dump(chunks_store, f, ensure_ascii=False, indent=2)
 
     logger.info(f"✅ Ingestion Step 2. Chunking 完成！共生成 {len(child_documents)} 個 chunks。Chunks 已存入 {chunks_json_path}")
-     
+    
     # ====== 3: Embedding 轉向量並寫入 ChromaDB ======
     self.update_state(state="PROCESSING", meta={"current_stage": "Vectorizing_&_Chroma_Storing"})
     get_vector_client().save_documents(child_documents)
         
     logger.info(f"✅ Ingestion Step 3. 文件 {file_name} 處理完成！已將 {len(child_documents)}個 chunks 寫入向量資料庫。")
-    
+     
     # 清除暫存的 PDF path，節省硬碟空間
     # if pdf_path.exists() and pdf_path != pdf_store_path:
     #   os.remove(pdf_path)
     if pdf_path.exists():
       os.remove(pdf_path)
-        
+
     return {"status": "success", "file_name": file_name, "chunks_count": len(child_documents)}
