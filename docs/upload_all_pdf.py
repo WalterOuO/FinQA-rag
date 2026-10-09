@@ -13,17 +13,8 @@ CATEGORIES = {
 
 def upload_pdf(pdf_path: Path, category: str):
   with open(pdf_path, "rb") as f:
-    files = {
-      "file": (
-        pdf_path.name,
-        f,
-        "application/pdf"
-      )
-    }
-
-    data = {
-      "category": category
-    }
+    files = {"file": (pdf_path.name, f, "application/pdf")}
+    data = {"category": category}
 
     response = requests.post(
       API_URL,
@@ -59,7 +50,6 @@ def main():
 
       try:
         result = upload_pdf(pdf_path, category)
-
         success += 1
 
         print(

@@ -19,25 +19,30 @@ class DoclingParser:
   def __init__(self):
     logger.info("初始化 Docling PDF Parser...")
 
+    rapidocr_params = {
+      "EngineConfig.onnxruntime.use_cuda": True,
+      "EngineConfig.onnxruntime.cuda_ep_cfg.device_id": 0,
+      "EngineConfig.onnxruntime.cuda_ep_cfg.cudnn_conv_algo_search": "DEFAULT",
+    }
+
+    logger.info("設定 cudnn_conv_algo_search使用DEFAULT, 允許 Docling 使用 CUDA解析 PDF Parser...")
+    
     pipeline_options = PdfPipelineOptions(
-      accelerator_options=AcceleratorOptions(
-        device=AcceleratorDevice.CUDA
-      ),
+      accelerator_options=AcceleratorOptions(device=AcceleratorDevice.CUDA),
       do_ocr=True,
       do_table_structure=True,
       ocr_options=RapidOcrOptions(
-        backend="torch",
+        backend="onnxruntime",
         lang=["chinese_cht"],
-        force_full_page_ocr=False
+        force_full_page_ocr=False,
+        rapidocr_params=rapidocr_params,
       )
     )
 
     self.converter = DocumentConverter(
       allowed_formats=[InputFormat.PDF],
       format_options={
-        InputFormat.PDF: PdfFormatOption(
-          pipeline_options=pipeline_options
-        )
+        InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options)
       }
     )
 

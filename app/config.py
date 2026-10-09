@@ -1,5 +1,8 @@
 from pathlib import Path
+from typing import ClassVar
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 # 定義專案根目錄 (FinQA-rag-project/)
 APP_DIR = Path(__file__).resolve().parent
@@ -20,24 +23,48 @@ class Settings(BaseSettings):
   # 4. Celery 處理幾個 Task 就釋放記憶體
   MAX_TASKS_NUMBER: int = 50
 
-
-  # Evaluation 版本選擇
+  # 5. Evaluation 版本選擇
   EVALUATION_VERSION: str = "E0"
 
   # Qdrant Server 版本對應 Port
-  QDRANT_PORTS = {
-      "E0": 6333,
-      "E1": 6334,
-      "E2": 6335,
-      "E3": 6336,
+  QDRANT_PORTS: ClassVar[dict[str, int]] = {
+    "E0": 6333,
+    "E1": 6334,
+    "E2": 6335,
+    "E3": 6336,
   }
 
-  QDRANT_PORT: int = QDRANT_PORTS[EVALUATION_VERSION]
-  QDRANT_URL: str = f"http://127.0.0.1:{QDRANT_PORT}"
+  @property
+  def QDRANT_PORT(self) -> int:
+    return self.QDRANT_PORTS[self.EVALUATION_VERSION]
 
-  # 地端 Qdrant Storage 獨立儲存每個 Evaluation的資料
-  QDRANT_STORAGE_DIR: Path = Path("/content/qdrant_db") / EVALUATION_VERSION
+  @property
+  def QDRANT_URL(self) -> str:
+    return f"http://127.0.0.1:{self.QDRANT_PORT}"
 
+  # 每個 Evaluation 版本使用獨立 Qdrant Storage
+  @property
+  def QDRANT_STORAGE_DIR(self) -> Path:
+    return Path("/content/qdrant_db") / self.EVALUATION_VERSION
+
+  # 6. 持久化本地儲存路徑
+  STORAGE_DIR: Path = PROJECT_ROOT / "storage"
+
+  @property
+  def PDF_STORE_DIR(self) -> Path:
+    return self.STORAGE_DIR / self.EVALUATION_VERSION / "pdf_store"
+
+  @property
+  def MARKDOWN_STORE_DIR(self) -> Path:
+    return self.STORAGE_DIR / self.EVALUATION_VERSION / "markdown_store"
+
+  @property
+  def PARENT_CHUNKS_DIR(self) -> Path:
+    return self.STORAGE_DIR / self.EVALUATION_VERSION / "parent_chunks"
+
+  @property
+  def QDRANT_BACKUP_DIR(self) -> Path:
+    return self.STORAGE_DIR / self.EVALUATION_VERSION / "qdrant_db"
 
   # Chunking 參數設定
   CHILD_CHUNK_SIZE: int = 400
@@ -60,19 +87,12 @@ class Settings(BaseSettings):
   RERANKER_MODEL_NAME: str = "BAAI/bge-reranker-base"
   LLM_MODEL_NAME: str = "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
 
-  # 6. 持久化雲端儲存路徑
-  STORAGE_DIR: Path = PROJECT_ROOT / "storage"
-  MARKDOWN_STORE_DIR: Path = PROJECT_ROOT / "storage" / EVALUATION_VERSION / "markdown_store"
-  PARENT_CHUNKS_DIR: Path = PROJECT_ROOT / "storage" / EVALUATION_VERSION / "parent_chunks"
-  QDRANT_BACKUP_DIR: Path = PROJECT_ROOT / "storage" / EVALUATION_VERSION /"qdrant_db"
-
-
   # .env 讀取
   model_config = SettingsConfigDict(
-      env_file=PROJECT_ROOT / ".env",
-      env_file_encoding="utf-8",
-      extra="ignore"
-    )
+    env_file=PROJECT_ROOT / ".env",
+    env_file_encoding="utf-8",
+    extra="ignore"
+  )
 
   def init_directories(self):
     categories = ["military", "finance"]

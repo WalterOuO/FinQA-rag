@@ -55,16 +55,6 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
     """
     logger.info(f"🚀 開始非同步處理文件 [{category}]: {file_name}")
 
-    # # ====== 0. 保存原始 PDF ======
-    # self.update_state(state="PROCESSING", meta={"current_stage": "STORING_PDF"})
-
-    # pdf_store_path = settings.PDF_STORE_DIR / category / file_name
-    # pdf_store_path.parent.mkdir(parents=True, exist_ok=True)
-    # with open(pdf_path, "rb") as src, open(pdf_store_path, "wb") as dst:
-    #   dst.write(src.read())
-
-    # logger.info(f"✅ Ingestion Step 0. 原始 PDF 已保存至: {pdf_store_path}")
-
     # ====== 1. PDF Parsing ======
     self.update_state(state="PROCESSING", meta={"current_stage": "DOCLING_&_OCR"})
 
@@ -135,7 +125,7 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
         "file_name": file_name
       }   
       chunks_store[child_id] = {
-        "page_content": c_doc.page_content,
+        "page_content": c_doc,
         "metadata": c_metadata
       }
       child_documents.append(Document(page_content=c_doc, metadata=c_metadata))
@@ -154,8 +144,6 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
     logger.info(f"✅ Ingestion Step 3. 文件 {file_name} 處理完成！已將 {len(child_documents)}個 chunks 寫入向量資料庫。")
      
     # 清除暫存的 PDF path，節省硬碟空間
-    # if pdf_path.exists() and pdf_path != pdf_store_path:
-    #   os.remove(pdf_path)
     if pdf_path.exists():
       os.remove(pdf_path)
 
