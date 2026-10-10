@@ -30,23 +30,23 @@ except Exception as e:
     print("[Celery CUDA Test] Inference failed:", repr(e), flush=True)
     session = None
 
-from collections import Counter
-_original_session = ort.InferenceSession
-ort_sessions = []
+# from collections import Counter
+# _original_session = ort.InferenceSession
+# ort_sessions = []
 
-def debug_session(*args, **kwargs):
-    options = kwargs.get("sess_options")
-    if options is None:
-        options = ort.SessionOptions()
-        kwargs["sess_options"] = options
+# def debug_session(*args, **kwargs):
+#   options = kwargs.get("sess_options")
+#   if options is None:
+#       options = ort.SessionOptions()
+#       kwargs["sess_options"] = options
 
-    options.enable_profiling = True
-    session = _original_session(*args, **kwargs)
-    ort_sessions.append(session)
+#   options.enable_profiling = True
+#   session = _original_session(*args, **kwargs)
+#   ort_sessions.append(session)
 
-    print("[ORT Session] Providers:", session.get_providers(), flush=True)
-    return session
-ort.InferenceSession = debug_session
+#   print("[ORT Session] Providers:", session.get_providers(), flush=True)
+#   return session
+# ort.InferenceSession = debug_session
 ort.set_default_logger_severity(3)
 
 
