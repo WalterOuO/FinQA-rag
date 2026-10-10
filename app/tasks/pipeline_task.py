@@ -1,4 +1,55 @@
 import os
+import sys
+import onnxruntime as ort
+print("[Celery ORT] Python:", sys.executable, flush=True)
+print("[Celery ORT] Version:", ort.__version__, flush=True)
+print("[Celery ORT] Package:", ort.__file__, flush=True)
+print("[Celery ORT] Build:", ort.get_build_info(), flush=True)
+print("[Celery ORT] Providers:", ort.get_available_providers(), flush=True)
+try:
+    devices = ort.get_ep_devices()
+    for device in devices:
+        print("[Celery] EP device:", device, flush=True)
+except Exception as e:
+    print("[Celery] get_ep_devices unavailable:", repr(e), flush=True)
+print("[Celery ORT] LD_LIBRARY_PATH:", os.environ.get("LD_LIBRARY_PATH"), flush=True)
+
+
+import numpy as np
+from pathlib import Path
+model = Path("/usr/local/lib/python3.13/dist-packages/rapidocr/models/PP-OCRv6_det_small.onnx")
+session = ort.InferenceSession(str(model), providers=["CUDAExecutionProvider", "CPUExecutionProvider"])
+inp = session.get_inputs()[0]
+x = np.zeros([1, 3, 64, 64], dtype=np.float32)
+try:
+    y = session.run(None, {inp.name: x})
+    print("[Celery CUDA Test] Inference succeeded", flush=True)
+    print("[Celery CUDA Test] Providers:", session.get_providers(), flush=True)
+    session = None
+except Exception as e:
+    print("[Celery CUDA Test] Inference failed:", repr(e), flush=True)
+    session = None
+
+from collections import Counter
+_original_session = ort.InferenceSession
+ort_sessions = []
+
+def debug_session(*args, **kwargs):
+    options = kwargs.get("sess_options")
+    if options is None:
+        options = ort.SessionOptions()
+        kwargs["sess_options"] = options
+
+    options.enable_profiling = True
+    session = _original_session(*args, **kwargs)
+    ort_sessions.append(session)
+
+    print("[ORT Session] Providers:", session.get_providers(), flush=True)
+    return session
+ort.InferenceSession = debug_session
+ort.set_default_logger_severity(3)
+
+
 import re
 import json
 import logging
@@ -73,6 +124,29 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
         
     logger.info(f"✅ Ingestion Step 1. PDF Parsing 完成，{file_name}產生的 markdown 已存入: {md_file_path} 。")
 
+    # for i, session in enumerate(ort_sessions):
+    #   try:
+    #     profile_path = session.end_profiling()
+
+    #     with open(profile_path, "r", encoding="utf-8") as f:
+    #         events = json.load(f)
+
+    #     nodes = [
+    #         event for event in events
+    #         if event.get("cat") == "Node"
+    #         and "provider" in event.get("args", {})
+    #     ]
+
+    #     counts = Counter(event["args"]["provider"] for event in nodes)
+
+    #     print(f"[ORT Profile {i}] File: {profile_path}", flush=True)
+    #     print(f"[ORT Profile {i}] Node counts: {dict(counts)}", flush=True)
+
+    #   except Exception as e:
+    #     print(f"[ORT Profile {i}] Failed: {e!r}", flush=True)
+  
+    # logger.info(f"✅ Ingestion Step 1.5. 成功印出 ORT Profile。")
+
     # ====== 2. Chunking ======
     self.update_state(state="PROCESSING", meta={"current_stage": "Chunking"})
 
@@ -89,7 +163,7 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
         "file_name": file_name
       }   
       chunks_store[child_id] = {
-        "page_content": c_doc.page_content,
+        "page_content": c_doc,
         "metadata": c_metadata
       }
 

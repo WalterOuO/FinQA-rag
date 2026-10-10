@@ -46,7 +46,7 @@ class DoclingParser:
       }
     )
 
-    logger.info("Docling PDF Parser 初始化完成 (CUDA + RapidOCR Torch + Table Structure)")
+    logger.info("Docling PDF Parser 初始化完成 (CUDA + RapidOCR onnxruntime + Table Structure)")
 
   def parse_pdf(self, pdf_path: str | Path) -> str:
     pdf_path = Path(pdf_path)
