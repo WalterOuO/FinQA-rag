@@ -31,7 +31,7 @@ def main():
     question = item["quetsion"]
     category = item["category"]
     ground_truth = item["ground_truth"]
-    source_file = item["source_file"]
+    ground_truth_source = item["source_file"]
 
     print("=" * 80)
     print(f"[Question {question_id}]")
@@ -92,14 +92,14 @@ def main():
         "quetsion": question,
         "category": category,
         "ground_truth": ground_truth,
-        "source_file": source_file,
+        "ground_truth_source": ground_truth_source,
         "error": str(e)
       })
 
       continue
 
     generated_answer = data.get("answer", "")
-    sources = data.get("sources", [])
+    retrieval_sources = data.get("retrieval_debug", [])
     context = data.get("context", "")
 
     result = {
@@ -107,9 +107,9 @@ def main():
       "quetsion": question,
       "category": category,
       "ground_truth": ground_truth,
-      "source_file": source_file,
+      "ground_truth_source": ground_truth_source,
       "generated_answer": generated_answer,
-      "retrieved_sources": sources,
+      "retrieved_sources": retrieval_sources,
       "context": context,
 
       # API request 整體延遲

@@ -16,7 +16,8 @@ PROMPT_FILE = EVALUATION_DIR / "judge_prompt.txt"
 VLLM_URL = "http://127.0.0.1:8000"
 JUDGE_MODEL = "neuralmagic/Meta-Llama-3.1-8B-Instruct-quantized.w8a8"
 
-TOP_K = 3
+from app.config import settings
+TOP_K = settings.RERANK_OUT_TOP_K
 
 
 # ============================================================
@@ -111,9 +112,9 @@ def main():
     question = item["quetsion"]
     category = item["category"]
     ground_truth = item["ground_truth"]
-    source_file = item["source_file"]
+    ground_truth_source = item["ground_truth_source"]
     generated_answer = item["generated_answer"]
-    sources = item["retrieved_sources"]
+    retrieved_sources = item["retrieved_sources"]
     context = item["context"]
 
     request_latency = item["request_latency_seconds"]
@@ -140,9 +141,8 @@ def main():
     # Retrieval
     # ========================================================
 
-    reciprocal_rank = calculate_reciprocal_rank(sources, source_file)
-
-    hit_at_k = calculate_hit_at_k(sources, source_file, TOP_K)
+    reciprocal_rank = calculate_reciprocal_rank(retrieved_sources, ground_truth_source)
+    hit_at_k = calculate_hit_at_k(retrieved_sources, ground_truth_source, TOP_K)
 
     # ========================================================
     # LLM Judge
@@ -184,9 +184,9 @@ def main():
       "quetsion": question,
       "category": category,
       "ground_truth": ground_truth,
-      "source_file": source_file,
+      "ground_truth_source": ground_truth_source,
       "generated_answer": generated_answer,
-      "retrieved_sources": sources,
+      "retrieved_sources": retrieved_sources,
 
       "reciprocal_rank": round(reciprocal_rank, 4),
 
