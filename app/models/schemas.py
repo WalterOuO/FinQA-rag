@@ -50,7 +50,7 @@ class QueryResponse(BaseModel):
   context: str = Field(..., description="實際餵給 LLM 的 context_str")
   token_usage: TokenUsage = Field(..., description="本次 LLM 推理的 token 使用量")
   performance: InferencePerformance = Field(..., description="LLM inference performance metrics")
-
+  retrieval_debug: list[dict[str, Any]] = Field(default_factory=list)
 
 # ==== Task Status ====
 

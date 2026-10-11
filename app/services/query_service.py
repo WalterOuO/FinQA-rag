@@ -70,7 +70,8 @@ class QueryService:
         "sources": [],
         "context": "",
         "token_usage": None,
-        "performance": None
+        "performance": None,
+        "retrieval_debug": []
       }
 
     logger.info(f"🔎 [Step 2] 完成 Hybrid Search, 取得 {len(hybrid_top_docs)} 個候選 chunks.")
@@ -175,8 +176,10 @@ class QueryService:
     # ====== Step 6: 建立問答 Prompt 與 LLM 生成 ======
     context_str = ""
     sources = []
+    retrieval_debug = []
 
     for idx, doc in enumerate(hybrid_top_docs):
+      metadata = dict(doc.metadata or {})
       src_file = doc.metadata.get("file_name", "未知文件")
 
       context_str += (
@@ -190,6 +193,14 @@ class QueryService:
         "frontend_index": idx + 1,
         "file_name": src_file,
         "category": category
+      })
+
+      retrieval_debug.append({
+        "rank": idx + 1,
+        "file_name": src_file,
+        "chunk_id": metadata.get("chunk_id"),
+        "page_content": doc.page_content,
+        "metadata": metadata
       })
 
     rag_prompt = RAG_PROMPT_TEMPLATE.format(
@@ -215,7 +226,8 @@ class QueryService:
       "sources": sources,
       "context": context_str,
       "token_usage": token_usage,
-      "performance": performance
+      "performance": performance,
+      "retrieval_debug": retrieval_debug
     }
 
 
