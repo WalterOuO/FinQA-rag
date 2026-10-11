@@ -89,8 +89,7 @@ with tab_qa:
               if sources:
                 with st.expander("🔍 資料引用處 "):
                   for src in sources:
-                    page_num_text = "、".join(str(page) for page in src.get("page_num_list", []))
-                    st.markdown(f"<strong>[{src['frontend_index']}] 原始檔案：</strong>{src['file_name']} | <strong>第 {page_num_text} 頁</strong> | <strong>所屬父文檔：</strong>{src['parent_id']}", unsafe_allow_html=True)
+                    st.markdown(f"<strong>[{src['frontend_index']}] 原始檔案：</strong>{src['file_name']}", unsafe_allow_html=True)
               
               # 儲存助理回覆至歷史
               st.session_state.messages.append({
