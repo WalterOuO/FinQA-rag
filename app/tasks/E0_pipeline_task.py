@@ -55,8 +55,8 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
     """
     logger.info(f"🚀 開始非同步處理文件 [{category}]: {file_name}")
 
-    # ====== 1. PDF Parsing ======
-    self.update_state(state="PROCESSING", meta={"current_stage": "DOCLING_&_OCR"})
+    # ====== 1. PDF Parsing: pdfplumber ======
+    self.update_state(state="PROCESSING", meta={"current_stage": "pdfplumber_Parsing"})
 
     pdf_path = Path(file_path)
     markdown_content = []

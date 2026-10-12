@@ -16,9 +16,9 @@ PROMPT_FILE = EVALUATION_DIR / "judge_prompt.txt"
 VLLM_URL = "http://127.0.0.1:8000"
 JUDGE_MODEL = "neuralmagic/Meta-Llama-3.1-8B-Instruct-quantized.w8a8"
 
-from app.config import settings
-TOP_K = settings.RERANK_OUT_TOP_K
-
+# from app.config import settings
+# TOP_K = settings.RERANK_OUT_TOP_K
+TOP_K = 3
 
 # ============================================================
 # LLM Judge

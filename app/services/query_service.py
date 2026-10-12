@@ -200,7 +200,6 @@ class QueryService:
         "file_name": src_file,
         "chunk_id": metadata.get("chunk_id"),
         "page_content": doc.page_content,
-        "metadata": metadata
       })
 
     rag_prompt = RAG_PROMPT_TEMPLATE.format(

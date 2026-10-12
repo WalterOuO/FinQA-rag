@@ -9,7 +9,7 @@ print("[Celery ORT] Providers:", ort.get_available_providers(), flush=True)
 try:
     devices = ort.get_ep_devices()
     for device in devices:
-        print("[Celery] EP device:", device, flush=True)
+      print("[Celery] EP device:", device, flush=True)
 except Exception as e:
     print("[Celery] get_ep_devices unavailable:", repr(e), flush=True)
 print("[Celery ORT] LD_LIBRARY_PATH:", os.environ.get("LD_LIBRARY_PATH"), flush=True)
