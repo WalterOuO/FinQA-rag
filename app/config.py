@@ -83,7 +83,7 @@ class Settings(BaseSettings):
   # 8. RAG 核心模型
   EMBEDDING_MODEL_NAME: str = "BAAI/bge-small-zh-v1.5"
   EMBEDDING_MODEL_DIMENSION: int = 512
-
+  EMBEDDING_MAX_INPUT_TOKENS: int = 512
   RERANKER_MODEL_NAME: str = "BAAI/bge-reranker-base"
   LLM_MODEL_NAME: str = "Qwen/Qwen2.5-7B-Instruct-GPTQ-Int8"
 

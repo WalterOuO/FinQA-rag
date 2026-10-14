@@ -180,7 +180,7 @@ class QueryService:
 
     for idx, doc in enumerate(hybrid_top_docs):
       metadata = dict(doc.metadata or {})
-      src_file = doc.metadata.get("file_name", "未知文件")
+      src_file = metadata.get("file_name", "未知文件")
 
       context_str += (
         f"===== CONTEXT {idx + 1} =====\n"
@@ -199,6 +199,8 @@ class QueryService:
         "rank": idx + 1,
         "file_name": src_file,
         "chunk_id": metadata.get("chunk_id"),
+        "page_num": metadata.get("page_num", []),
+        "headings": metadata.get("headings", []),
         "page_content": doc.page_content,
       })
 
