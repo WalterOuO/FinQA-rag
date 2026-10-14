@@ -1,6 +1,7 @@
 import json
 import argparse
 from pathlib import Path
+from collections import defaultdict
 from langchain_openai import ChatOpenAI
 from evaluate_utils import calculate_reciprocal_rank, calculate_hit_at_k, parse_judge_response
 
@@ -10,15 +11,12 @@ from evaluate_utils import calculate_reciprocal_rank, calculate_hit_at_k, parse_
 
 BASE_DIR = Path("/content/drive/MyDrive/FinQA-rag")
 EVALUATION_DIR = BASE_DIR / "evaluation"
-
 PROMPT_FILE = EVALUATION_DIR / "judge_prompt.txt"
 
 VLLM_URL = "http://127.0.0.1:8000"
 JUDGE_MODEL = "neuralmagic/Meta-Llama-3.1-8B-Instruct-quantized.w8a8"
-
-# from app.config import settings
-# TOP_K = settings.RERANK_OUT_TOP_K
 TOP_K = 3
+
 
 # ============================================================
 # LLM Judge
@@ -29,24 +27,50 @@ def load_judge_prompt():
     return f.read()
 
 
-def judge_answer(
-    client,
-    prompt_template,
-    question,
-    ground_truth,
-    generated_answer,
-    context
-  ):
+def judge_answer(client, prompt_template, question, ground_truth, generated_answer, context):
   prompt = prompt_template.format(
     question=question,
     ground_truth=ground_truth,
     generated_answer=generated_answer,
     context=context
   )
-
   response = client.invoke(prompt)
-
   return parse_judge_response(response.content)
+
+
+# ============================================================
+# Metrics Summary
+# ============================================================
+
+def calculate_summary(results):
+  count = len(results)
+
+  def average(key):
+    values = [item[key] for item in results if item.get(key) is not None]
+    return round(sum(values) / len(values), 4) if values else None
+
+  def average_token(key):
+    values = [
+      item["token_usage"][key]
+      for item in results
+      if item.get("token_usage") and item["token_usage"].get(key) is not None
+    ]
+    return round(sum(values) / len(values), 2) if values else None
+
+  return {
+    "total_questions": count,
+    "MRR": average("reciprocal_rank"),
+    f"Hit@{TOP_K}": average(f"hit_at_{TOP_K}"),
+    "average_answer_correctness": average("answer_correctness"),
+    "average_faithfulness": average("faithfulness"),
+    "average_request_latency_seconds": average("request_latency_seconds"),
+    "average_inference_latency_seconds": average("inference_latency_seconds"),
+    "average_token_usage": {
+      "prompt_tokens": average_token("prompt_tokens"),
+      "completion_tokens": average_token("completion_tokens"),
+      "total_tokens": average_token("total_tokens")
+    }
+  }
 
 
 # ============================================================
@@ -62,16 +86,14 @@ def main():
   )
   args = parser.parse_args()
 
-
-  input_file = (EVALUATION_DIR / "evaluation_answers"
-  / f"{args.experiment}_answers.json")
+  input_file = EVALUATION_DIR / "evaluation_answers" / f"{args.experiment}_answers.json"
 
   with open(input_file, "r", encoding="utf-8") as f:
     evaluation_answers = json.load(f)
 
   prompt_template = load_judge_prompt()
 
-  # Judge vLLM 必須由外部先行啟動
+  # Judge vLLM must be started externally
   judge_llm = ChatOpenAI(
     openai_api_base=f"{VLLM_URL}/v1",
     model=JUDGE_MODEL,
@@ -80,32 +102,16 @@ def main():
     openai_api_key="vllm-free-token-bypass"
   )
 
-  results = []
-  # Retrieval metrics
-  reciprocal_ranks = []
-  hit_results = []
-  # LLM generation metrics
-  answer_correctness_scores = []
-  faithfulness_scores = []
-  # Latency metrics
-  request_latencies = []
-  inference_latencies = []
-  # Token usage metrics
-  prompt_tokens_list = []
-  completion_tokens_list = []
-  total_tokens_list = []
+  # Group evaluated results by category
+  category_results = defaultdict(list)
 
   print("=" * 80)
   print("Starting Evaluation with existing Judge vLLM...")
   print("=" * 80)
-  print()
 
   for item in evaluation_answers:
     if "error" in item:
-      print(
-        f"[{item['id']}] Skipped because generation failed: "
-        f"{item['error']}"
-      )
+      print(f"[{item['id']}] Skipped because generation failed: {item['error']}")
       continue
 
     question_id = item["id"]
@@ -118,68 +124,31 @@ def main():
     context = item["context"]
 
     request_latency = item["request_latency_seconds"]
-
     performance = item.get("performance")
 
-    if not performance:
-      raise ValueError(f"Question {question_id}: missing 'performance'.")
+    if not performance or performance.get("total_latency_seconds") is None:
+      raise ValueError(f"Question {question_id}: missing inference performance.")
 
-    inference_latency = performance.get("total_latency_seconds")
-    if inference_latency is None:
-      raise ValueError(f"Question {question_id}: missing 'performance.total_latency_seconds'.")
-
+    inference_latency = performance["total_latency_seconds"]
     token_usage = item.get("token_usage")
 
     if not token_usage:
-      raise ValueError(f"Question {question_id}: missing 'token_usage'.")
-    
-    prompt_tokens = token_usage["prompt_tokens"]
-    completion_tokens = token_usage["completion_tokens"]
-    total_tokens = token_usage["total_tokens"]
+      raise ValueError(f"Question {question_id}: missing token usage.")
 
-    # ========================================================
-    # Retrieval
-    # ========================================================
-
+    # Retrieval metrics
     reciprocal_rank = calculate_reciprocal_rank(retrieved_sources, ground_truth_source)
     hit_at_k = calculate_hit_at_k(retrieved_sources, ground_truth_source, TOP_K)
 
-    # ========================================================
     # LLM Judge
-    # ========================================================
-
     judge_result = judge_answer(
-      judge_llm,
-      prompt_template,
-      question,
-      ground_truth,
-      generated_answer,
-      context
+      judge_llm, prompt_template, question,
+      ground_truth, generated_answer, context
     )
 
     answer_correctness = judge_result["answer_correctness"]
     faithfulness = judge_result["faithfulness"]
-    judge_reason = judge_result.get("reason", "")
 
-    # ========================================================
-    # Collect Metrics
-    # ========================================================
-
-    reciprocal_ranks.append(reciprocal_rank)
-    hit_results.append(hit_at_k)
-    answer_correctness_scores.append(answer_correctness)
-    faithfulness_scores.append(faithfulness)
-    request_latencies.append(request_latency)
-    inference_latencies.append(inference_latency)
-    prompt_tokens_list.append(prompt_tokens)
-    completion_tokens_list.append(completion_tokens)
-    total_tokens_list.append(total_tokens)
-
-    # ========================================================
-    # Store Result
-    # ========================================================
-
-    results.append({
+    result = {
       "id": question_id,
       "quetsion": question,
       "category": category,
@@ -187,82 +156,46 @@ def main():
       "ground_truth_source": ground_truth_source,
       "generated_answer": generated_answer,
       "retrieved_sources": retrieved_sources,
-
       "reciprocal_rank": round(reciprocal_rank, 4),
-
       f"hit_at_{TOP_K}": hit_at_k,
-
       "answer_correctness": answer_correctness,
       "faithfulness": faithfulness,
-      "judge_reason": judge_reason,
-
+      "judge_reason": judge_result.get("reason", ""),
       "request_latency_seconds": round(request_latency, 4),
-
+      "inference_latency_seconds": inference_latency,
       "performance": {
         "total_latency_seconds": performance.get("total_latency_seconds"),
         "ttft_seconds": performance.get("ttft_seconds"),
         "tpot_seconds": performance.get("tpot_seconds")
       },
-
       "token_usage": {
         "prompt_tokens": token_usage["prompt_tokens"],
         "completion_tokens": token_usage["completion_tokens"],
         "total_tokens": token_usage["total_tokens"]
       }
-    })
-
-    print(
-      f"[{question_id}] "
-      f"MRR={reciprocal_rank:.4f} | "
-      f"Hit@{TOP_K}={hit_at_k} | "
-      f"Correctness={answer_correctness}/5 | "
-      f"Faithfulness={faithfulness}/5 | "
-      f"Latency={inference_latency:.4f}s | "
-      f"Tokens={total_tokens} "
-      f"(prompt={prompt_tokens}, completion={completion_tokens})"
-    )
-
-  # ==========================================================
-  # Summary
-  # ==========================================================
-
-  count = len(results)
-
-  summary = {
-    "total_questions": count,
-    "MRR": round(sum(reciprocal_ranks) / count, 4) if count else 0,
-    f"Hit@{TOP_K}": round(sum(hit_results) / count, 4) if count else 0,
-    "average_answer_correctness": round(
-      sum(answer_correctness_scores) / len(answer_correctness_scores), 4) if answer_correctness_scores else None,
-    "average_faithfulness": round(
-      sum(faithfulness_scores) / len(faithfulness_scores), 4) if faithfulness_scores else None,
-    "average_request_latency_seconds": round(
-      sum(request_latencies) / len(request_latencies), 4) if request_latencies else None,
-    "average_inference_latency_seconds": round(
-      sum(inference_latencies) / len(inference_latencies),4) if inference_latencies else None,
-    "average_token_usage": {
-      "prompt_tokens": round(
-        sum(prompt_tokens_list) / len(prompt_tokens_list), 2) if prompt_tokens_list else None,
-      "completion_tokens": round(
-        sum(completion_tokens_list) / len(completion_tokens_list),2) if completion_tokens_list else None,
-      "total_tokens": round(
-        sum(total_tokens_list) / len(total_tokens_list),2) if total_tokens_list else None
-      }
-    
     }
 
-  output = {
-    "summary": summary,
-    "results": results
-  }
+    category_results[category].append(result)
 
-  # ==========================================================
-  # Save
-  # ==========================================================
+    print(
+      f"[{question_id}] Category={category} | "
+      f"MRR={reciprocal_rank:.4f} | Hit@{TOP_K}={hit_at_k} | "
+      f"Correctness={answer_correctness}/5 | Faithfulness={faithfulness}/5"
+    )
 
-  output_file = (EVALUATION_DIR / "evaluation_results"
-    / f"{args.experiment}_results.json")
+  # ========================================================
+  # Build category-level output
+  # ========================================================
 
+  output = {}
+
+  for category, results in category_results.items():
+    output[category] = {
+      "summary": calculate_summary(results),
+      "results": results
+    }
+
+  output_file = EVALUATION_DIR / "evaluation_results" / f"{args.experiment}_results.json"
   output_file.parent.mkdir(parents=True, exist_ok=True)
 
   with open(output_file, "w", encoding="utf-8") as f:
@@ -272,10 +205,13 @@ def main():
   print("=" * 80)
   print("EVALUATION COMPLETED")
   print("=" * 80)
-  print(f"Experiment : {args.experiment}")
-  print(json.dumps(summary, ensure_ascii=False, indent=2))
-  print()
-  print(f"Results saved to: {output_file}")
+  print(f"Experiment: {args.experiment}")
+  print(json.dumps(
+    {category: data["summary"] for category, data in output.items()},
+    ensure_ascii=False,
+    indent=2
+  ))
+  print(f"\nResults saved to: {output_file}")
 
 
 if __name__ == "__main__":

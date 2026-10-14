@@ -48,6 +48,27 @@ class DoclingParser:
 
     logger.info("Docling PDF Parser 初始化完成 (CUDA + RapidOCR onnxruntime + Table Structure)")
 
+  # 回傳原始的 DoclingDocument 給 Docling 內建的 HybridChunker
+  def convert_pdf(self, pdf_path: str | Path):
+    pdf_path = Path(pdf_path)
+    logger.info(f"開始使用 Docling 解析 PDF: {pdf_path.name}")
+
+    try:
+      result = self.converter.convert(pdf_path)
+      document = result.document
+      logger.info(
+        f"Docling PDF 解析完成: {pdf_path.name}, "
+        f"pages={document.num_pages()}"
+      )
+      return document
+    except Exception as e:
+      logger.error(
+        f"Docling PDF 解析失敗: {pdf_path.name}: {e}",
+        exc_info=True,
+      )
+      raise
+
+  # 回傳 Markdown 檔給一般的 textchunker
   def parse_pdf(self, pdf_path: str | Path) -> str:
     pdf_path = Path(pdf_path)
 

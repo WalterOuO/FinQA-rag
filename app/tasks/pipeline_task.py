@@ -176,8 +176,8 @@ def process_pdf_pipeline(self, file_path: str, category: str, file_name: str):
 
     logger.info(f"✅ Ingestion Step 2. Chunking 完成！共生成 {len(child_documents)} 個 chunks。Chunks 已存入 {chunks_json_path}")
      
-    # ====== 3: Embedding 轉向量並寫入 ChromaDB ======
-    self.update_state(state="PROCESSING", meta={"current_stage": "Vectorizing_&_Chroma_Storing"})
+    # ====== 3: Embedding 轉向量並寫入 QdrantDB ======
+    self.update_state(state="PROCESSING", meta={"current_stage": "Vectorizing_&_Qdrant_Storing"})
     get_vector_client().save_documents(child_documents)
         
     logger.info(f"✅ Ingestion Step 3. 文件 {file_name} 處理完成！已將 {len(child_documents)}個 chunks 寫入向量資料庫。")
